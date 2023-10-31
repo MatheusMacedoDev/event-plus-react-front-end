@@ -11,9 +11,9 @@ const RouteView = () => {
         <BrowserRouter>
             <Routes>
                 <Route element={ <HomePage/> } path="/" exact/>
-                <Route element={ <EventPage/> } path="/Event"/>
-                <Route element={ <EventTypePage/> } path="/EventType"/>
-                <Route element={ <LoginPage/> } path="/Login"/>
+                <Route element={ <EventPage/> } path="/event"/>
+                <Route element={ <EventTypePage/> } path="/event-type"/>
+                <Route element={ <LoginPage/> } path="/login"/>
             </Routes>
         </BrowserRouter>
     );
