@@ -1,5 +1,3 @@
-import './App.css';
-
 import RouteView from './routes';
 
 const App = () => (
