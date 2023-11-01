@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import Button from '../../Button/Button';
+import Button from '../../components/Button/Button';
 import Input from '../../components/Input/Input';
 
 const TestPage = () => {
