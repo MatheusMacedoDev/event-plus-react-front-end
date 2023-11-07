@@ -1,10 +1,14 @@
 import React from 'react';
 
+import Banner from '../../components/Banner/Banner';
+import VisionSection from '../../components/VisionSection/VisionSection';
+
 const HomePage = () => {
     return (
-        <div>
-            <h1>Página Home</h1>
-        </div>
+        <main>
+            <Banner />
+            <VisionSection />
+        </main>
     );
 };
 

@@ -16,10 +16,10 @@ const RouteView = () => {
             <Header/>
             <Routes>
                 <Route element={ <HomePage/> } path="/" exact/>
-                <Route element={ <EventPage/> } path="/event"/>
-                <Route element={ <EventTypePage/> } path="/event-type"/>
+                <Route element={ <EventPage/> } path="/eventos"/>
+                <Route element={ <EventTypePage/> } path="/tipo-eventos"/>
                 <Route element={ <LoginPage/> } path="/login"/>
-                <Route element={ <TestPage/> } path="/test"/>
+                <Route element={ <TestPage/> } path="/testes"/>
             </Routes>
             <Footer/>
         </BrowserRouter>

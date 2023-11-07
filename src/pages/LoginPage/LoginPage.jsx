@@ -1,9 +1,11 @@
 import React from 'react';
 
+import Title from '../../components/Title/Title';
+
 const LoginPage = () => {
     return (
         <div>
-            <h1>Página de Login</h1>
+            <Title text='Login'/>
         </div>
     );
 };

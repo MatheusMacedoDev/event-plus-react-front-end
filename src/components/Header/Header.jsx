@@ -1,23 +1,31 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Header.css';
 
-import { Container } from '../Container/Container';
+import Container from '../Container/Container';
 import Nav from '../Nav/Nav';
 import UserProfile from '../UserProfile/UserProfile';
 
 import MenuBarImage from '../../assets/images/menubar.png';
 
 const Header = () => {
+    const [showMobileNavBar, setShowMobileNavBar] = useState(false);
+
+    function toggleShowMobileNavBar() {
+        setShowMobileNavBar(!showMobileNavBar);
+    }
+
     return (
-        <header className='header-page'>
+        <header className='headerpage'>
             <Container>
-                <div className="header-page__flex">
-                    <img 
+                <div className="header-flex">
+                    <img  
+                        onClick={toggleShowMobileNavBar} 
+                        className='headerpage__menubar'
                         src={MenuBarImage} 
                         alt="Imagem de menu de barras que ao clicar exibe ou esconde o menu em dispositivos móveis." 
                     />
 
-                    <Nav/>
+                    <Nav showMobileNavBar={showMobileNavBar} toggleShowMobileNavBar={toggleShowMobileNavBar} />
                     <UserProfile/>
                 </div>
             </Container>
