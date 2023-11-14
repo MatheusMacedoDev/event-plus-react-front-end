@@ -9,14 +9,14 @@ import Title from '../../components/Title/Title';
 import Container from '../../components/Container/Container';
 
 import api from '../../services/apiAcessor';
-import { ListNextEventsResource } from '../../services/apiResources';
+import { listNextEventsResource } from '../../services/apiResources';
 
 const HomePage = () => {
     const [nextEvents, setNextEvents] = useState([]);
 
     const getNextEvents = async () => {
         try {
-            const promise = await api.get(ListNextEventsResource);
+            const promise = await api.get(listNextEventsResource);
             const data = promise.data;
 
             setNextEvents(data);
