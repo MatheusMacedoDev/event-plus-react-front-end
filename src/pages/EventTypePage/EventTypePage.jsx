@@ -18,6 +18,7 @@ const EventTypePage = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [title, setTitle] = useState('');
     const [eventTypes, setEventTypes] = useState([]);
+    const [editingEventType, setEditingEventType] = useState({})
 
     useEffect(() => {
         async function loadEventType() {
@@ -30,18 +31,23 @@ const EventTypePage = () => {
         }
 
         loadEventType();
-    }, []);
+    }, [eventTypes]);
 
     async function handleSubmit(e) {
         e.preventDefault();
 
-        if (title.trim().length < 3)
+        if (title.trim().length < 3) {
             alert('O título deve conter ao menos 3 caractéres')
+            return;
+        }
 
         try {
             const response = await api.post(eventTypesResource, {
                 titulo: title
             });
+
+            // setEventTypes(eventTypes.push(response.data)); 
+
         } catch (error) {
             alert(error)
         }
@@ -50,23 +56,32 @@ const EventTypePage = () => {
     }
     
     function handleUpdate(e) {
-        e.preventDefault();
-        alert('Update');
+        alert('Updating...');
     }
 
     /**
      * Apaga um elemento com tal id
      * @param {Element id} id 
      */
-    function handleDelete(id) {
-        alert(`Apagando o elemento com id: ${id}`)
+    async function handleDelete(id) {
+        if(!window.confirm("Deseja realmente excluir esse tipo de evento?"))
+            return;
+
+        try {
+            const response = await api.delete(`${eventTypesResource}/${id}`)
+            // setEventTypes(eventTypes.filter(type => type.idTipoEvento !== id))
+        } catch(err) {
+            console.log(err);
+        }
     }
     
     /**
      * Entra em modo de edição
      */
-    function showUpdateForm() {
+    function showUpdateForm(elementId, elementTitle) {
         alert(`Entrando em modo de edição...`)
+        setTitle(elementTitle);
+        setIsEditing(true)
     }
     
     /**
@@ -100,7 +115,6 @@ const EventTypePage = () => {
                                             name='title'
                                             type='text'
                                             required='required'
-                                            value={title}
                                             handleChange={event => {
                                                 setTitle(event.target.value);
                                             }}
@@ -112,7 +126,29 @@ const EventTypePage = () => {
                                         />
                                     </>
                                 ) : (
-                                    <p>Edição</p>
+                                    <>
+                                        <Input 
+                                            id='Title'
+                                            placeholder='Título'
+                                            name='title'
+                                            type='text'
+                                            required='required'
+                                            handleChange={event => {
+                                                setTitle(event.target.value);
+                                            }}
+                                        />
+                                        <Button
+                                            textButton='Atualizar'
+                                            name='SendButton'
+                                            id='SendButton'
+                                        />
+                                        <Button
+                                            textButton='Cancelar'
+                                            name='SendButton'
+                                            id='SendButton'
+                                        />
+
+                                    </>
                                 )
                             }
                         </form>

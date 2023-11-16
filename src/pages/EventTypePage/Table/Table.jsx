@@ -18,17 +18,26 @@ const Table = ( {data, deleteFn = null, updateFn = null} ) => {
                 {
                     data.map(element => {
                         return (
-                            <tr className="table-data__head-row">
+                            <tr key={element.idTipoEvento} className="table-data__head-row">
                                 <td className="table-data__data table-data__data--big">
-                                    element
+                                    { element.titulo }
                                 </td>
 
                                 <td className="table-data__data table-data__data--little">
-                                    <img className="table-data__icon" src={PenImage} alt="" />
+                                    <img 
+                                        onClick={() => updateFn(element.idTipoEvento, element.titulo)} 
+                                        className="table-data__icon" 
+                                        src={PenImage} alt="" 
+                                        id-tipo-evento={element.idTipoEvento}
+                                    />
                                 </td>
 
                                 <td className="table-data__data table-data__data--little">
-                                    <img className="table-data__icon" src={TrashImage} alt="" />
+                                    <img 
+                                        onClick={() => deleteFn(element.idTipoEvento)} 
+                                        className="table-data__icon" 
+                                        src={TrashImage} alt="" 
+                                    />
                                 </td>
                             </tr>
                         )
