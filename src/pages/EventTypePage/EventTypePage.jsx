@@ -14,24 +14,28 @@ import { eventTypesResource } from '../../services/apiResources';
 
 import Table from './Table/Table';
 
+import Notification from '../../components/Notification/Notification';
+
 const EventTypePage = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [title, setTitle] = useState('');
     const [eventTypes, setEventTypes] = useState([]);
     const [editingEventType, setEditingEventType] = useState({})
+    const [notifyUser, setNotifyUser] = useState()
+
+    async function loadEventTypes() {
+        try {
+            const response = await api.get(eventTypesResource);
+            setEventTypes(response.data);
+            console.log('Atualizou')
+        } catch(error) {
+            console.log(error);
+        }
+    }
 
     useEffect(() => {
-        async function loadEventType() {
-            try {
-                const response = await api.get(eventTypesResource);
-                setEventTypes(response.data);
-            } catch(error) {
-                console.log(error);
-            }
-        }
-
-        loadEventType();
-    }, [eventTypes]);
+        loadEventTypes();
+    }, []);
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -46,6 +50,8 @@ const EventTypePage = () => {
                 titulo: title
             });
 
+            loadEventTypes();
+            notifySuccess('Evento criado com sucesso');
             // setEventTypes(eventTypes.push(response.data)); 
 
         } catch (error) {
@@ -56,7 +62,27 @@ const EventTypePage = () => {
     }
     
     function handleUpdate(e) {
-        alert('Updating...');
+        e.preventDefault();
+        
+        if (title.trim().length < 3) {
+            alert('O título deve conter ao menos 3 caractéres')
+            return;
+        }
+
+        async function update() {
+            try {
+                await api.put(`${eventTypesResource}/${editingEventType.id}`, {
+                    titulo: editingEventType.title
+                });
+
+                loadEventTypes();
+                notifySuccess('Evento atualizado com sucesso');
+            } catch(error) {
+                console.log(error);
+            }
+        }
+
+        update();
     }
 
     /**
@@ -69,7 +95,9 @@ const EventTypePage = () => {
 
         try {
             const response = await api.delete(`${eventTypesResource}/${id}`)
-            // setEventTypes(eventTypes.filter(type => type.idTipoEvento !== id))
+            setEventTypes(eventTypes.filter(type => type.idTipoEvento !== id))
+            notifySuccess('Evento excluído com sucesso')
+            // setEventTypes([]);
         } catch(err) {
             console.log(err);
         }
@@ -79,99 +107,124 @@ const EventTypePage = () => {
      * Entra em modo de edição
      */
     function showUpdateForm(elementId, elementTitle) {
-        alert(`Entrando em modo de edição...`)
+        console.log(elementId, elementTitle);
+        setIsEditing(true);
         setTitle(elementTitle);
-        setIsEditing(true)
+        setEditingEventType({
+            id: elementId,
+            title: elementTitle
+        })
     }
     
     /**
      * Cancela as alterações feitas
      */
     function editActionAbort() {
-        alert(`Cancelando alteração...`)
+        setIsEditing(false);
+        setTitle('');
+    }
+
+    function notifySuccess(textNote) {
+        setNotifyUser({
+            titleNote: "Sucesso",
+            textNote,
+            imgIcon: 'success',
+            imgAlt: 'Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.',
+            showMessage: true
+        });
     }
     
 
     return (
-        <main>
-            <section className="cadastro-evento-section">
-                <Container>
-                    <div className="cadastro-evento__box">
-                        <Title text='Cadastro de Tipos de Evento'/>
-                        
-                        <ImageIllustration 
-                            image={EventTypeImage} 
-                            altText='Imagem ilustrativa de tipo de evento.'
+        <>
+            {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
+            <main>
+                <section className="cadastro-evento-section">
+                    <Container>
+                        <div className="cadastro-evento__box">
+                            <Title text='Cadastro de Tipos de Evento'/>
+                            
+                            <ImageIllustration 
+                                image={EventTypeImage} 
+                                altText='Imagem ilustrativa de tipo de evento.'
+                            />
+
+                            <form className="ftipo-evento" onSubmit={isEditing ? handleUpdate : handleSubmit}>
+                                {
+                                    !isEditing ? 
+                                    (
+                                        <>
+                                            <Input 
+                                                id='TitleCreate'
+                                                placeholder='Título'
+                                                name='titleCreate'
+                                                type='text'
+                                                value={title}
+                                                required='required'
+                                                handleChange={event => {
+                                                    setTitle(event.target.value);
+                                                }}
+                                            />
+                                            <Button
+                                                textButton='Cadastrar'
+                                                name='SendButton'
+                                                id='SendButton'
+                                            />
+                                        </>
+                                    ) : (
+                                        <>
+                                            <Input 
+                                                id='TitleUpdate'
+                                                placeholder='Título'
+                                                name='titleUpdate'
+                                                type='text'
+                                                value={title}
+                                                required='required'
+                                                handleChange={event => {
+                                                    setTitle(event.target.value);
+                                                    setEditingEventType({
+                                                        id: editingEventType.id,
+                                                        title: event.target.value
+                                                    })
+                                                }}
+                                            />
+                                            <Button
+                                                textButton='Atualizar'
+                                                name='atualizar'
+                                                id='atualizar'
+                                            />
+                                            <Button
+                                                textButton='Cancelar'
+                                                name='SendButton'
+                                                id='SendButton'
+                                                handleClick={editActionAbort}
+                                            />
+
+                                        </>
+                                    )
+                                }
+                            </form>
+
+                            
+                        </div>
+                    </Container>
+                </section>
+
+                <section className="lista-eventos-section">
+                    <Container>
+                        <Title 
+                            text='Lista de Tipos de Eventos'
+                            color='white'
                         />
-
-                        <form className="ftipo-evento" onSubmit={isEditing ? handleUpdate : handleSubmit}>
-                            {
-                                !isEditing ? 
-                                (
-                                    <>
-                                        <Input 
-                                            id='Title'
-                                            placeholder='Título'
-                                            name='title'
-                                            type='text'
-                                            required='required'
-                                            handleChange={event => {
-                                                setTitle(event.target.value);
-                                            }}
-                                        />
-                                        <Button
-                                            textButton='Cadastrar'
-                                            name='SendButton'
-                                            id='SendButton'
-                                        />
-                                    </>
-                                ) : (
-                                    <>
-                                        <Input 
-                                            id='Title'
-                                            placeholder='Título'
-                                            name='title'
-                                            type='text'
-                                            required='required'
-                                            handleChange={event => {
-                                                setTitle(event.target.value);
-                                            }}
-                                        />
-                                        <Button
-                                            textButton='Atualizar'
-                                            name='SendButton'
-                                            id='SendButton'
-                                        />
-                                        <Button
-                                            textButton='Cancelar'
-                                            name='SendButton'
-                                            id='SendButton'
-                                        />
-
-                                    </>
-                                )
-                            }
-                        </form>
-
-                        
-                    </div>
-                </Container>
-            </section>
-
-            <section className="lista-eventos-section">
-                <Container>
-                    <Title 
-                        text='Lista de Tipos de Eventos'
-                        color='white'
-                    />
-                    <Table 
-                        data={eventTypes}
-                        updateFn={showUpdateForm}
-                        deleteFn={handleDelete}
-                    />
-                </Container>
-            </section>
-        </main>
+                        <Table 
+                            data={eventTypes}
+                            updateFn={showUpdateForm}
+                            deleteFn={handleDelete}
+                        />
+                    </Container>
+                </section>
+            </main>
+        </>
     );
 };
 
