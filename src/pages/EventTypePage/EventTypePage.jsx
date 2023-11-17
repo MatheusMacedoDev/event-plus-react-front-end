@@ -23,16 +23,20 @@ const EventTypePage = () => {
     const [editingEventType, setEditingEventType] = useState({})
     const [notifyUser, setNotifyUser] = useState()
 
+    function scrollToTable() {
+        const table = document.querySelector('table');
+        table.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
+
     async function loadEventTypes() {
         try {
             const response = await api.get(eventTypesResource);
             setEventTypes(response.data);
-            console.log('Atualizou')
         } catch(error) {
             console.log(error);
         }
     }
-
+    
     useEffect(() => {
         loadEventTypes();
     }, []);
@@ -52,6 +56,7 @@ const EventTypePage = () => {
 
             loadEventTypes();
             notifySuccess('Evento criado com sucesso');
+            scrollToTable();
             // setEventTypes(eventTypes.push(response.data)); 
 
         } catch (error) {
@@ -77,6 +82,8 @@ const EventTypePage = () => {
 
                 loadEventTypes();
                 notifySuccess('Evento atualizado com sucesso');
+                editActionAbort();
+                scrollToTable();
             } catch(error) {
                 console.log(error);
             }
@@ -114,6 +121,7 @@ const EventTypePage = () => {
             id: elementId,
             title: elementTitle
         })
+        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
     
     /**
@@ -188,17 +196,21 @@ const EventTypePage = () => {
                                                     })
                                                 }}
                                             />
-                                            <Button
-                                                textButton='Atualizar'
-                                                name='atualizar'
-                                                id='atualizar'
-                                            />
-                                            <Button
-                                                textButton='Cancelar'
-                                                name='SendButton'
-                                                id='SendButton'
-                                                handleClick={editActionAbort}
-                                            />
+                                            <div className="buttons-editbox">
+                                                <Button
+                                                    textButton='Atualizar'
+                                                    name='atualizar'
+                                                    id='atualizar'
+                                                    additionalClassName='button-component--middle'
+                                                />
+                                                <Button
+                                                    textButton='Cancelar'
+                                                    name='SendButton'
+                                                    id='SendButton'
+                                                    handleClick={editActionAbort}
+                                                    additionalClassName='button-component--middle'
+                                                />
+                                            </div>
 
                                         </>
                                     )
