@@ -16,12 +16,15 @@ import Table from './Table/Table';
 
 import Notification from '../../components/Notification/Notification';
 
+import Spinner from '../../components/Spinner/Spinner';
+
 const EventTypePage = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [title, setTitle] = useState('');
     const [eventTypes, setEventTypes] = useState([]);
     const [editingEventType, setEditingEventType] = useState({})
     const [notifyUser, setNotifyUser] = useState()
+    const [showSpinner, setShowSpinner] = useState(false);
 
     function scrollToTable() {
         const table = document.querySelector('table');
@@ -29,23 +32,34 @@ const EventTypePage = () => {
     }
 
     async function loadEventTypes() {
+        setShowSpinner(true);
+
         try {
             const response = await api.get(eventTypesResource);
             setEventTypes(response.data);
         } catch(error) {
-            console.log(error);
+            notifyError('Houve um error no carregamento de informações. Verifique a sua conexão com a internet!');
         }
+
+        setShowSpinner(false);
     }
     
     useEffect(() => {
         loadEventTypes();
     }, []);
 
+    /**
+     * Cadastra um tipo de evento
+     * @param {Event} e 
+     * @returns 
+     */
     async function handleSubmit(e) {
         e.preventDefault();
 
+        setShowSpinner(true);
+
         if (title.trim().length < 3) {
-            alert('O título deve conter ao menos 3 caractéres')
+            notifyWarning('O título deve conter ao menos 3 caractéres');
             return;
         }
 
@@ -60,14 +74,18 @@ const EventTypePage = () => {
             // setEventTypes(eventTypes.push(response.data)); 
 
         } catch (error) {
-            alert(error)
+            notifyError('Houve um error ao enviar. Verifique a sua conexão com a internet!');
         }
 
         setTitle('');
+
+        setShowSpinner(false);
     }
     
     function handleUpdate(e) {
         e.preventDefault();
+
+        setShowSpinner(true);
         
         if (title.trim().length < 3) {
             alert('O título deve conter ao menos 3 caractéres')
@@ -85,11 +103,13 @@ const EventTypePage = () => {
                 editActionAbort();
                 scrollToTable();
             } catch(error) {
-                console.log(error);
+                notifyError('Houve um error ao atualizar. Verifique a sua conexão com a internet!');
             }
         }
 
         update();
+
+        setShowSpinner(false);
     }
 
     /**
@@ -100,14 +120,18 @@ const EventTypePage = () => {
         if(!window.confirm("Deseja realmente excluir esse tipo de evento?"))
             return;
 
+            setShowSpinner(true);
+
         try {
             const response = await api.delete(`${eventTypesResource}/${id}`)
             setEventTypes(eventTypes.filter(type => type.idTipoEvento !== id))
             notifySuccess('Evento excluído com sucesso')
             // setEventTypes([]);
-        } catch(err) {
-            console.log(err);
+        } catch(error) {
+            notifyError('Houve um error ao remover um tipo de evento. Verifique a sua conexão com a internet!');
         }
+
+        setShowSpinner(false);
     }
     
     /**
@@ -141,11 +165,32 @@ const EventTypePage = () => {
             showMessage: true
         });
     }
+
+    function notifyError(textNote) {
+        setNotifyUser({
+            titleNote: "Erro",
+            textNote,
+            imgIcon: 'danger',
+            imgAlt: 'Imagem de ilustração de erro. Homem segurando um balão com símbolo de X.',
+            showMessage: true
+        });
+    }
+
+    function notifyWarning(textNote) {
+        setNotifyUser({
+            titleNote: "Aviso",
+            textNote,
+            imgIcon: 'warning',
+            imgAlt: 'Imagem de ilustração de aviso. Mulher em frente a um grande ponto de exclamação.',
+            showMessage: true
+        });
+    }
     
 
     return (
         <>
             {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
+            {showSpinner ? <Spinner /> : null}
             <main>
                 <section className="cadastro-evento-section">
                     <Container>

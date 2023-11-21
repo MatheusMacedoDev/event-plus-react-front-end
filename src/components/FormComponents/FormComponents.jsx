@@ -1,12 +1,12 @@
 import './FormComponents.css';
 
 export const Input = ( {
-    type,
     id,
+    name,
     value,
+    type,
     required,
     additionalClassName,
-    name,
     placeholder,
     handleChange
 } ) => {
@@ -51,14 +51,14 @@ export const Button = ( {
 }
 
 export const Select = ( { 
-    required,
     id,
     name,
     options = [],
     handleChange,
+    required,
     additionalClassNmae = '',
     handleClick,
-    defaultValue = '',
+    value = '',
     firstOption = 'Selecione'
 } ) => {
     return (
@@ -68,7 +68,7 @@ export const Select = ( {
             className={`input-component ${additionalClassNmae}`}
             onChange={handleChange}
             onClick={handleClick}
-            value={defaultValue}
+            value={value}
         >
             <option value="">{`${firstOption}:`}</option>
             {options.map((option, index) => <option key={index} value={option.value}>{option.text}</option>)}
