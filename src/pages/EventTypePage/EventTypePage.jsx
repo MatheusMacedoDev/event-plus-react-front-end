@@ -69,7 +69,7 @@ const EventTypePage = () => {
             });
 
             loadEventTypes();
-            notifySuccess('Evento criado com sucesso');
+            notifySuccess('Tipo de evento criado com sucesso');
             scrollToTable();
             // setEventTypes(eventTypes.push(response.data)); 
 
@@ -99,7 +99,7 @@ const EventTypePage = () => {
                 });
 
                 loadEventTypes();
-                notifySuccess('Evento atualizado com sucesso');
+                notifySuccess('Tipo de evento atualizado com sucesso');
                 editActionAbort();
                 scrollToTable();
             } catch(error) {

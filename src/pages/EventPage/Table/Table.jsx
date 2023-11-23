@@ -3,6 +3,8 @@ import './Table.css';
 import TrashImage from '../../../assets/images/trash-delete.svg';
 import PenImage from '../../../assets/images/edit-pen.svg';
 
+import { dateFormatDbToView } from '../../../utils/stringFunctions';
+
 const Table = ( {data, deleteFn = null, showEditFormFn = null} ) => {
     return (
         <table className="table-data" id="table">
@@ -31,7 +33,7 @@ const Table = ( {data, deleteFn = null, showEditFormFn = null} ) => {
                                     {element.eventTypeTitle}
                                 </td>
                                 <td className="table-data__data table-data__data--big">
-                                    {new Date(element.date).toLocaleDateString()}
+                                    {dateFormatDbToView(element.date)}
                                 </td>
                                 <td className="table-data__data table-data__data--little">
                                     <img 
