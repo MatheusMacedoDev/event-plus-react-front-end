@@ -138,7 +138,6 @@ const EventTypePage = () => {
      * Entra em modo de edição
      */
     function showUpdateForm(elementId, elementTitle) {
-        console.log(elementId, elementTitle);
         setIsEditing(true);
         setTitle(elementTitle);
         setEditingEventType({
