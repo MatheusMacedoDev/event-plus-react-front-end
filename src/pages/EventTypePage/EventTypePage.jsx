@@ -18,6 +18,8 @@ import Notification from '../../components/Notification/Notification';
 
 import Spinner from '../../components/Spinner/Spinner';
 
+import { validate, minimumCharacters } from '../../services/validation';
+
 const EventTypePage = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [title, setTitle] = useState('');
@@ -58,8 +60,10 @@ const EventTypePage = () => {
 
         setShowSpinner(true);
 
+
         if (title.trim().length < 3) {
             notifyWarning('O título deve conter ao menos 3 caractéres');
+            setShowSpinner(false);
             return;
         }
 
@@ -88,7 +92,7 @@ const EventTypePage = () => {
         setShowSpinner(true);
         
         if (title.trim().length < 3) {
-            alert('O título deve conter ao menos 3 caractéres')
+            notifyWarning('O título deve conter ao menos 3 caractéres')
             return;
         }
 

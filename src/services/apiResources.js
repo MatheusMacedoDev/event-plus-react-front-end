@@ -10,4 +10,8 @@ export const listNextEventsResource = 'Evento/ListarProximos';
  * Resource of Event Types
  */
 export const eventTypesResource = 'TiposEvento';
+/**
+ * Resource of Login
+ */
+export const loginResource = 'Login';
 

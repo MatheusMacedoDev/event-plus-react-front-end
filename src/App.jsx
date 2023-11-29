@@ -2,31 +2,18 @@ import RouteView from './routes';
 
 import { useState, useEffect } from 'react';
 
+import { UserContext } from './context/AuthContext';
+
 const App = () => {
-  const [windowSize, setWindowSize] = useState(getWindowSize()) 
-
-  useEffect(() => {
-    const handleWindowSize = () => {
-      setWindowSize(getWindowSize());
-    };
-
-    window.addEventListener('resize', handleWindowSize);
-
-    return () => {
-      window.removeEventListener('resize', handleWindowSize);
-    }
-  }, [])
+  const [userData, setUserData] = useState({})
 
   return (
     <div className="App">
-      <RouteView/>
+      <UserContext.Provider value={ {userData, setUserData} }>
+        <RouteView/>
+      </UserContext.Provider>
     </div>
   );
-}
-
-function getWindowSize() {
-  const {innerWidth, innerHeight} = window;
-  return {innerWidth, innerHeight};
 }
 
 
