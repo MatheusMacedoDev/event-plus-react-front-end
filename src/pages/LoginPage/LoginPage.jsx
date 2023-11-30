@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import ImageIllustrator from "../../components/ImageIllustration/ImageIllustration";
 import logo from "../../assets/images/logo-pink.svg";
 import { Input, Button } from "../../components/FormComponents/FormComponents";
@@ -10,11 +10,23 @@ import LoginImage from '../../assets/images/login.svg';
 import api from '../../services/apiAcessor';
 import { loginResource } from '../../services/apiResources';
 
+import { useNavigate } from 'react-router-dom';
+
 import { userDecodeToken, UserContext } from '../../context/AuthContext';
 
 const LoginPage = () => {
     const [user, setUser] = useState({email: 'admin@admin.com', senha: ''})
     const {userData, setUserData} = useContext(UserContext);
+
+    const navigate = useNavigate();
+
+    function isLoggedInVerification() {
+        if (userData !== null) navigate('/');
+    }
+
+    useEffect(() => {
+        isLoggedInVerification();
+    }, [])
 
     async function handleSubmit(e) {
         e.preventDefault();
@@ -31,6 +43,8 @@ const LoginPage = () => {
             setUserData(decodedToken);
 
             localStorage.setItem('token', JSON.stringify(decodedToken));
+
+            navigate('/');
         } catch(err) {
             alert('Dados inválidos')
         }

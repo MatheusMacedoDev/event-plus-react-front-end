@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import './Nav.css';
 
 import { Link } from 'react-router-dom';
@@ -6,8 +6,10 @@ import { Link } from 'react-router-dom';
 import LogoMobile from '../../assets/images/logo-white.svg';
 import LogoDeskTop from '../../assets/images/logo-pink.svg';
 
+import { UserContext, userDecodeToken } from '../../context/AuthContext';
+
 const Nav = ({ showMobileNavBar, toggleShowMobileNavBar }) => {
-    
+    const { userData } = useContext(UserContext);
 
     return (
         <nav className={`navbar ${showMobileNavBar ? 'exibeNavbar' : ''}`}>
@@ -21,8 +23,7 @@ const Nav = ({ showMobileNavBar, toggleShowMobileNavBar }) => {
                 <Link to='/' className='navbar__item'>Home</Link>
                 <Link to='/tipo-eventos' className='navbar__item'>Tipos de Evento</Link>
                 <Link to='/eventos' className='navbar__item'>Eventos</Link>
-                <Link to='/login' className='navbar__item'>Login</Link>
-                <Link to='/testes' className='navbar__item'>Testes</Link>
+                {/* <Link to='/testes' className='navbar__item'>Testes</Link> */}
             </div>
         </nav>
     );
