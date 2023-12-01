@@ -21,7 +21,7 @@ const LoginPage = () => {
     const navigate = useNavigate();
 
     function isLoggedInVerification() {
-        if (userData !== null) navigate('/');
+        if (userData) navigate('/');
     }
 
     useEffect(() => {

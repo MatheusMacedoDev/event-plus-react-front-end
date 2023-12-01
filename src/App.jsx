@@ -1,4 +1,4 @@
-import RouteView from './routes';
+import RouteView from './routes/routes';
 
 import { useState, useEffect } from 'react';
 

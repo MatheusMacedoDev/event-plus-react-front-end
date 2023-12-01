@@ -21,8 +21,20 @@ const Nav = ({ showMobileNavBar, toggleShowMobileNavBar }) => {
 
             <div className="navbar__items-box">
                 <Link to='/' className='navbar__item'>Home</Link>
-                <Link to='/tipo-eventos' className='navbar__item'>Tipos de Evento</Link>
-                <Link to='/eventos' className='navbar__item'>Eventos</Link>
+
+                {
+                    userData 
+                        ? userData.role == "Administrador" ? (
+                            <>
+                                <Link to='/tipo-eventos' className='navbar__item'>Tipos de Evento</Link>
+                                <Link to='/eventos' className='navbar__item'>Eventos</Link>
+                            </>
+                        ) : (
+                            <Link to='/eventos' className='navbar__item'>Eventos Aluno</Link>
+                        )
+                    : ''
+
+                }
                 {/* <Link to='/testes' className='navbar__item'>Testes</Link> */}
             </div>
         </nav>

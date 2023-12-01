@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 
 import api from '../../services/apiAcessor';
 import { eventTypesResource, eventsResource } from '../../services/apiResources';
@@ -12,6 +12,8 @@ import Notification from '../../components/Notification/Notification';
 import Spinner from '../../components/Spinner/Spinner';
 
 import EventImage from '../../assets/images/evento.svg';
+
+import { UserContext } from '../../context/AuthContext';
 
 // Constraints
 const INSTITUTION_ID = '6bbd863e-5f50-4834-b2b6-7afc6f2ceec5';
@@ -36,6 +38,8 @@ const EventPage = () => {
 
     // Sppiner
     const [showSpinner, setShowSpinner] = useState(false);
+
+    const {userData} = useContext(UserContext);
 
     // Create
 
@@ -82,7 +86,11 @@ const EventPage = () => {
         setShowSpinner(true);
 
         try {
-            const eventsResponse = await api.get(eventsResource);
+            const eventsResponse = await api.get(eventsResource, {
+                headers: {
+                    'Authorization': `bearer ${userData.token}`
+                }
+            });
             const data = eventsResponse.data.map(event => {
                 return {
                     id: event.idEvento,
