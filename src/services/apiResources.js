@@ -14,4 +14,9 @@ export const eventTypesResource = 'TiposEvento';
  * Resource of Login
  */
 export const loginResource = 'Login';
+/**
+ * Resource of Event Presence
+ */
+export const eventPresencesResource = 'PresencasEvento';
+
 

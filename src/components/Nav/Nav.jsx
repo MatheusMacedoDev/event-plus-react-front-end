@@ -30,7 +30,7 @@ const Nav = ({ showMobileNavBar, toggleShowMobileNavBar }) => {
                                 <Link to='/eventos' className='navbar__item'>Eventos</Link>
                             </>
                         ) : (
-                            <Link to='/eventos' className='navbar__item'>Eventos Aluno</Link>
+                            <Link to='/eventos-aluno' className='navbar__item'>Eventos Aluno</Link>
                         )
                     : ''
 

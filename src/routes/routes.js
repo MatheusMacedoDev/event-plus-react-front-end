@@ -8,6 +8,8 @@ import EventPage from '../pages/EventPage/EventPage';
 import HomePage from '../pages/HomePage/HomePage';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import TestPage from '../pages/Test/TestPage';
+import StudentEventPage from '../pages/StudentEventPage/StudentEventPage';
+
 import Footer from '../components/Footer/Footer';
 import { PrivateRoute } from './PrivateRoute';
 
@@ -24,6 +26,12 @@ const RouteView = () => {
                         <PrivateRoute>
                             <EventPage/> 
                         </PrivateRoute>
+                    } 
+                />
+                <Route 
+                    path="/eventos-aluno"
+                    element={ 
+                        <StudentEventPage/>
                     } 
                 />
                 <Route 

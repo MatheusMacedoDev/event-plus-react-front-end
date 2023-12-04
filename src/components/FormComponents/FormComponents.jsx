@@ -70,7 +70,11 @@ export const Select = ( {
             onClick={handleClick}
             value={value}
         >
-            <option value="">{`${firstOption}:`}</option>
+            {
+                (value !== '') 
+                    ? <option value="">{`${firstOption}:`}</option>
+                    : ''
+            }
             {options.map((option, index) => <option key={index} value={option.value}>{option.text}</option>)}
         </select>
     );
