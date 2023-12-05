@@ -106,8 +106,8 @@
   
   @media screen and (min-width: 992px) {
     .modal__box {
-      width: 770px;
-      height: 770px;
+      width: 550px;
+      height: 550px;
       padding: 40px 35px;
     }
     .modal__title,

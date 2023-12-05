@@ -46,7 +46,19 @@ const StudentEventPage = () => {
 
   async function getMyEvents() {
     const myEventsResponse = await api.get(`${eventPresencesResource}/ListarMinhas/${userData.id}`);
-    console.log(myEventsResponse.data);
+    const events = myEventsResponse.data.map(presence => {
+      const idEvento = presence.evento.idEvento;
+      const nomeEvento = presence.evento.nomeEvento;
+      const dataEvento = presence.evento.dataEvento;
+
+      return {
+        idEvento,
+        nomeEvento,
+        dataEvento
+      }
+    })
+    
+    return events;
   }
 
   useEffect(() => {
@@ -55,15 +67,24 @@ const StudentEventPage = () => {
         const data = await getAllEvents();
         setEventos(data);
       } else {
-        getMyEvents();
-        setEventos([
-          {nomeEvento: 'Evento', dataEvento: '20/01/2033', idEvento: '0'}
-        ]);
+        const data = await getMyEvents();
+        setEventos(data);
       }
     }    
 
     getEvents();
   }, [tipoEvento]);
+
+  const verifyPresence = (allEvents, userEvents) => {
+    for (let x = 0; allEvents.length; x++) {
+      for (let y = 0; userEvents.length; y++) {
+        if (allEvents[x].idEvento === userEvents[y].idEvento) {
+          allEvents[x].situacao = true;
+          break;
+        }
+      }
+    }
+  }
 
   // toggle meus eventos ou todos os eventos
   function myEvents(tpEvent) {
@@ -83,7 +104,7 @@ const StudentEventPage = () => {
   };
 
   function handleConnect() {
-    alert("Desenvolver a função conectar evento");
+    // alert("Desenvolver a função conectar evento");
   }
   return (
     <>
