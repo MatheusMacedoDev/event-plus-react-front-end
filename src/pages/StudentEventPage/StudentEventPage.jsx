@@ -11,6 +11,7 @@ import { eventsResource, eventPresencesResource } from '../../services/apiResour
 
 import "./StudentEventPage.css";
 import { UserContext } from "../../context/AuthContext";
+import { all } from "axios";
 
 const StudentEventPage = () => {
   // state do menu mobile
@@ -35,13 +36,25 @@ const StudentEventPage = () => {
           'Authorization': `bearer ${userData.token}`
       }
     });
-    return eventsResponse.data.map(event => {
+
+    const allEvents = eventsResponse.data.map(event => {
       return {
           idEvento: event.idEvento,
           nomeEvento: event.nomeEvento,
           dataEvento: event.dataEvento.slice(0, 10),
       };
     });
+
+    
+    // await new Promise(resolve => setTimeout(resolve, 10000));
+
+
+    const myEvents = await getMyEvents();
+
+    const allEventsWithSituation = verifyPresence(allEvents, myEvents);
+
+    console.log(allEventsWithSituation);
+    return allEvents;
   }
 
   async function getMyEvents() {
@@ -50,40 +63,54 @@ const StudentEventPage = () => {
       const idEvento = presence.evento.idEvento;
       const nomeEvento = presence.evento.nomeEvento;
       const dataEvento = presence.evento.dataEvento;
+      const idPresencaEvento = presence.idPresencaEvento;
 
       return {
         idEvento,
         nomeEvento,
-        dataEvento
+        dataEvento,
+        situacao: true,
+        idPresencaEvento
       }
     })
-    
+
     return events;
   }
 
-  useEffect(() => {
-    async function getEvents() {
-      if (tipoEvento == 1) {
-        const data = await getAllEvents();
-        setEventos(data);
-      } else {
-        const data = await getMyEvents();
-        setEventos(data);
-      }
-    }    
+  async function getEvents() {
+    if (tipoEvento == 1) {
+      const data = await getAllEvents();
+      console.log(data);
+      setEventos(data);
+    } else {
+      const data = await getMyEvents();
+      console.log(data);
+      setEventos(data);
+    }
+  } 
 
+  useEffect(() => {
     getEvents();
   }, [tipoEvento]);
 
   const verifyPresence = (allEvents, userEvents) => {
-    for (let x = 0; allEvents.length; x++) {
-      for (let y = 0; userEvents.length; y++) {
-        if (allEvents[x].idEvento === userEvents[y].idEvento) {
-          allEvents[x].situacao = true;
-          break;
+    try {
+      for (let x = 0; x < allEvents.length; x++) {
+        allEvents[x].situacao = false;
+        for (let y = 0; y < userEvents.length; y++) {
+          if (allEvents[x].idEvento === userEvents[y].idEvento) {
+            allEvents[x].situacao = true;
+            allEvents[x].idPresencaEvento = userEvents[y].idPresencaEvento;
+            break;
+          }
         }
       }
+  
+      return allEvents;
+    } catch(err) {
+      console.log(err);
     }
+ 
   }
 
   // toggle meus eventos ou todos os eventos
@@ -103,9 +130,30 @@ const StudentEventPage = () => {
     alert("Remover o comentário");
   };
 
-  function handleConnect() {
-    // alert("Desenvolver a função conectar evento");
+  async function handleConnect(eventId, situation, presenceId = null) {
+    if (situation === false) {
+      try {
+        await api.post(eventPresencesResource, {
+          situacao: true,
+          idUsuario: userData.id,
+          idEvento: eventId
+        });
+
+        getEvents();
+      } catch(err) {
+        console.log(err);
+      }
+    } else {
+      try {
+        await api.delete(`${eventPresencesResource}/${presenceId}`);
+
+        getEvents();
+      } catch(err) {
+        console.log(err);
+      }
+    }
   }
+
   return (
     <>
       <Main>
