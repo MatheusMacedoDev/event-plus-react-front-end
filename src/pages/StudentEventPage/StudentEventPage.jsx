@@ -7,7 +7,7 @@ import { Select } from '../../components/FormComponents/FormComponents';
 import Spinner from "../../components/Spinner/Spinner";
 import Modal from "../../components/Modal/Modal";
 import api from "../../services/apiAcessor";
-import { eventsResource, eventPresencesResource } from '../../services/apiResources';
+import { eventsResource, eventPresencesResource, CommentaryResource } from '../../services/apiResources';
 
 import "./StudentEventPage.css";
 import { UserContext } from "../../context/AuthContext";
@@ -29,6 +29,9 @@ const StudentEventPage = () => {
 
   // recupera os dados globais do usuário
   const { userData, setUserData } = useContext(UserContext);
+
+  // Evento Selecionado para a tela de comentário
+  const [currentEventIdOnComment, setCurrentEventIdOnComment] = useState('');
 
   async function getAllEvents() {
     const eventsResponse = await api.get(eventsResource, {
@@ -118,17 +121,43 @@ const StudentEventPage = () => {
     setTipoEvento(tpEvent);
   }
 
-  async function loadMyComentary(idComentary) {
-    return "????";
+  async function loadMyCommentary() {
+    try {
+      const response = await api.get(`${CommentaryResource}/BuscarPorIdUsuario/${userData.id}/${currentEventIdOnComment}`);
+      const commentary = response.data;
+      return commentary;
+    } catch(e) {
+      console.log(e);
+    }
+  }
+  
+  async function commentaryRemove(commentaryId) {
+    try {
+      console.log(commentaryId);
+      await api.delete(`${CommentaryResource}/${commentaryId}`)
+    } catch(e) {
+      console.log(e);
+    }
+  };
+
+  async function postMyCommentary(commentaryText) {
+    try {
+      await api.post(CommentaryResource, {
+        descricao: commentaryText,
+        exibe: true,
+        idUsuario: userData.id,
+        idEvento: currentEventIdOnComment
+      })
+    } catch(e) {
+      console.log(e);
+    }
   }
 
-  const showHideModal = () => {
+  const showHideModal = (eventId) => {
+    setCurrentEventIdOnComment(eventId);
     setShowModal(showModal ? false : true);
   };
 
-  const commentaryRemove = () => {
-    alert("Remover o comentário");
-  };
 
   async function handleConnect(eventId, situation, presenceId = null) {
     if (situation === false) {
@@ -174,9 +203,7 @@ const StudentEventPage = () => {
           <Table
             dados={eventos}
             fnConnect={handleConnect}
-            fnShowModal={() => {
-              showHideModal();
-            }}
+            fnShowModal={showHideModal}
           />
         </Container>
       </Main>
@@ -188,6 +215,8 @@ const StudentEventPage = () => {
         <Modal
           userId={userData.userId}
           showHideModal={showHideModal}
+          fnGet={loadMyCommentary}
+          fnNewCommentary={postMyCommentary}
           fnDelete={commentaryRemove}
         />
       ) : null}

@@ -19,4 +19,9 @@ export const loginResource = 'Login';
  */
 export const eventPresencesResource = 'PresencasEvento';
 
+/**
+ * Resource of Commentary
+ */
+export const CommentaryResource = 'ComentariosEvento';
+
 

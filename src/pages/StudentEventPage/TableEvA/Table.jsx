@@ -65,7 +65,7 @@ const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
                   idevento={e.idEvento}
                   src={comentaryIcon}
                   alt=""
-                  onClick={fnShowModal}
+                  onClick={() => fnShowModal(e.idEvento)}
                 />
 
                 <Toggle manipulationFunction={() => fnConnect(e.idEvento, e.situacao, e.idPresencaEvento)} id={e.idEvento} toggleActive={e.situacao}/>
