@@ -56,7 +56,6 @@ const StudentEventPage = () => {
 
     const allEventsWithSituation = verifyPresence(allEvents, myEvents);
 
-    console.log(allEventsWithSituation);
     return allEvents;
   }
 
@@ -83,11 +82,9 @@ const StudentEventPage = () => {
   async function getEvents() {
     if (tipoEvento == 1) {
       const data = await getAllEvents();
-      console.log(data);
       setEventos(data);
     } else {
       const data = await getMyEvents();
-      console.log(data);
       setEventos(data);
     }
   } 
@@ -148,6 +145,7 @@ const StudentEventPage = () => {
         idUsuario: userData.id,
         idEvento: currentEventIdOnComment
       })
+      console.log('Commentary posted');
     } catch(e) {
       console.log(e);
     }

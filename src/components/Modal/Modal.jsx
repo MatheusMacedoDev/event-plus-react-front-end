@@ -13,24 +13,33 @@ const Modal = ({
   fnNewCommentary = null
 }) => {
   const [newCommentaryText, setNewCommentaryText] = useState('');
-  const [postedCommentaryText, setPostedCommentaryText] = useState("Não informado. Não informado. Não informado.");
+  const [postedCommentaryText, setPostedCommentaryText] = useState('');
   const [postedCommentaryId, setPostedCommentaryId] = useState('');
+
+  const [haveCommentary, setHaveCommentary] = useState(false);
 
   async function getCommentary() {
     const commentaryData = await fnGet();
     
+    console.log(`Commentary updated: ${commentaryData}`);
+
     setPostedCommentaryText(commentaryData.descricao);
     setPostedCommentaryId(commentaryData.idComentarioEvento);
+
+    if (commentaryData.descricao) {
+      setHaveCommentary(true);
+    } else {
+      setHaveCommentary(false);
+    }
   }
 
   useEffect(() => {
-
     getCommentary();
   }, []);
 
   return (
     <div className="modal">
-      <article className="modal__box">
+      <article className="modal__box" style={haveCommentary ? {justifyContent: 'flex-start'} : {}}>
         
         <h3 className="modal__title">
           {modalTitle}
@@ -39,38 +48,52 @@ const Modal = ({
 
         <div className="comentary">
           <h4 className="comentary__title">Comentário</h4>
-          <img
-            src={trashDelete}
-            className="comentary__icon-delete"
-            alt="Ícone de uma lixeira"
-            onClick={() => {
-              fnDelete(postedCommentaryId)
-              getCommentary();
-            }}
-          />
+          
+          {
+            haveCommentary ? (
+              <img
+                src={trashDelete}
+                className="comentary__icon-delete"
+                alt="Ícone de uma lixeira"
+                onClick={async () => {
+                  await fnDelete(postedCommentaryId)
+                  await getCommentary();
+                }}
+              />
+            ) : ''
+          }
 
-          <p className="comentary__text">{postedCommentaryText}</p>
+          <p className="comentary__text">{!haveCommentary ? 'Nenhum comentário para exibir. Faça seu comentário' : postedCommentaryText}</p>
 
           <hr className="comentary__separator" />
         </div>
 
-        <Input
-          placeholder="Escreva seu comentário..."
-          className="comentary__entry"
-          handleChange={e => {
-            setNewCommentaryText(e.target.value);
-          }}
-          value={newCommentaryText}
-        />
+        {
+          !haveCommentary ? (
+            <>
+              <Input
+                placeholder="Escreva seu comentário..."
+                className="comentary__entry"
+                handleChange={e => {
+                  setNewCommentaryText(e.target.value);
+                }}
+                value={newCommentaryText}
+              />
+      
+              <Button
+                buttonText="Comentar"
+                additionalClassName="comentary__button"
+                handleClick={async () => {
+                  await fnNewCommentary(newCommentaryText)
+                  await getCommentary();
 
-        <Button
-          buttonText="Comentar"
-          additionalClassName="comentary__button"
-          handleClick={() => {
-            fnNewCommentary(newCommentaryText)
-            getCommentary();
-          }}
-        />
+                  setNewCommentaryText('');
+                }}
+              />
+            </>
+          ) : ''
+        }
+
       </article>
     </div>
   );
