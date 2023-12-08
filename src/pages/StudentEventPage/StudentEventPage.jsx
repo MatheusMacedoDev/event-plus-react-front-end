@@ -5,6 +5,7 @@ import Table from "./TableEvA/Table";
 import Container from "../../components/Container/Container";
 import { Select } from '../../components/FormComponents/FormComponents';
 import Spinner from "../../components/Spinner/Spinner";
+import Notification from '../../components/Notification/Notification';
 import Modal from "../../components/Modal/Modal";
 import api from "../../services/apiAcessor";
 import { eventsResource, eventPresencesResource, CommentaryResource } from '../../services/apiResources';
@@ -32,6 +33,38 @@ const StudentEventPage = () => {
 
   // Evento Selecionado para a tela de comentário
   const [currentEventIdOnComment, setCurrentEventIdOnComment] = useState('');
+
+  const [notifyUser, setNotifyUser] = useState()
+
+  function notifySuccess(textNote) {
+    setNotifyUser({
+        titleNote: "Sucesso",
+        textNote,
+        imgIcon: 'success',
+        imgAlt: 'Imagem de ilustração de sucesso. Moça segurando um balão com símbolo de confirmação ok.',
+        showMessage: true
+    });
+  }
+
+  function notifyError(textNote) {
+      setNotifyUser({
+          titleNote: "Erro",
+          textNote,
+          imgIcon: 'danger',
+          imgAlt: 'Imagem de ilustração de erro. Homem segurando um balão com símbolo de X.',
+          showMessage: true
+      });
+  }
+
+  function notifyWarning(textNote) {
+    setNotifyUser({
+        titleNote: "Aviso",
+        textNote,
+        imgIcon: 'warning',
+        imgAlt: 'Imagem de ilustração de aviso. Mulher em frente a um grande ponto de exclamação.',
+        showMessage: true
+    });
+  }
 
   async function getAllEvents() {
     const eventsResponse = await api.get(eventsResource, {
@@ -108,7 +141,7 @@ const StudentEventPage = () => {
   
       return allEvents;
     } catch(err) {
-      console.log(err);
+      notifyError('Erro na requisição. Verifique a sua conexão com a internet!')
     }
  
   }
@@ -119,25 +152,37 @@ const StudentEventPage = () => {
   }
 
   async function loadMyCommentary() {
+    setShowSpinner(true);
+
     try {
       const response = await api.get(`${CommentaryResource}/BuscarPorIdUsuario/${userData.id}/${currentEventIdOnComment}`);
       const commentary = response.data;
+      setShowSpinner(false);
+      
       return commentary;
     } catch(e) {
-      console.log(e);
+      notifyError('Erro na requisição. Verifique a sua conexão com a internet!')
     }
+    
+    setShowSpinner(false);
   }
   
   async function commentaryRemove(commentaryId) {
+    setShowSpinner(true);
+
     try {
       console.log(commentaryId);
       await api.delete(`${CommentaryResource}/${commentaryId}`)
     } catch(e) {
-      console.log(e);
+      notifyError('Erro na requisição. Verifique a sua conexão com a internet!')
     }
+
+    setShowSpinner(false);
   };
 
   async function postMyCommentary(commentaryText) {
+    setShowSpinner(true);
+
     try {
       await api.post(CommentaryResource, {
         descricao: commentaryText,
@@ -145,10 +190,11 @@ const StudentEventPage = () => {
         idUsuario: userData.id,
         idEvento: currentEventIdOnComment
       })
-      console.log('Commentary posted');
     } catch(e) {
-      console.log(e);
+      notifyError('Erro na requisição. Verifique a sua conexão com a internet!')
     }
+
+    setShowSpinner(false);
   }
 
   const showHideModal = (eventId) => {
@@ -168,7 +214,7 @@ const StudentEventPage = () => {
 
         getEvents();
       } catch(err) {
-        console.log(err);
+        notifyError('Erro na requisição. Verifique a sua conexão com a internet!')
       }
     } else {
       try {
@@ -176,13 +222,14 @@ const StudentEventPage = () => {
 
         getEvents();
       } catch(err) {
-        console.log(err);
+        notifyError('Erro na requisição. Verifique a sua conexão com a internet!')
       }
     }
   }
 
   return (
     <>
+      {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
       <Main>
         <Container>
           <Title titleText={"Eventos"} className="custom-title" />
