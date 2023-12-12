@@ -72,9 +72,12 @@ const HomePage = () => {
                                         date={ nextEvent.dataEvento } 
                                         idEvent={ nextEvent.idEvento } 
                                         buttonText='Conectar'
+                                        onButtonClick={() => {
+                                            alert('Conectando...');
+                                        }}
                                     />
-                                    )
-                                })}
+                                )
+                            })}
                         </div>
                     </Container>
                 </section>
@@ -92,6 +95,9 @@ const HomePage = () => {
                                         date={ previousEvent.dataEvento } 
                                         idEvent={ previousEvent.idEvento } 
                                         buttonText='Visualizar'
+                                        onButtonClick={() => {
+                                            alert('Vizualizando...');
+                                        }}
                                     />
                                 )
                             })}

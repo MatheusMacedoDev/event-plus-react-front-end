@@ -5,12 +5,7 @@ import { Tooltip } from 'react-tooltip';
 
 import { dateFormatDbToView } from '../../utils/stringFunctions';
 
-const NextEvent = ( {title, description, date, idEvent, buttonText} ) => {
-    function conectar(e) {
-        e.preventDefault();
-        alert(`Conectando: ${idEvent}`)
-    }
-
+const NextEvent = ( {title, description, date, idEvent, buttonText, onButtonClick} ) => {
     return (
         <article className='event-card'>
             <h2 className="event-card__title">{title.substring(0, 15)}...</h2>
@@ -24,7 +19,7 @@ const NextEvent = ( {title, description, date, idEvent, buttonText} ) => {
                 <Tooltip id={idEvent} className='tooltip' />
             </p>
             <p className="event-card__description">{dateFormatDbToView(date)}</p>
-            <a onClick={conectar} className="event-card__connect-link">{buttonText}</a>
+            <a onClick={onButtonClick} className="event-card__connect-link">{buttonText}</a>
         </article>
     );
 };
