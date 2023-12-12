@@ -9,6 +9,8 @@ import HomePage from '../pages/HomePage/HomePage';
 import LoginPage from '../pages/LoginPage/LoginPage';
 import TestPage from '../pages/Test/TestPage';
 import StudentEventPage from '../pages/StudentEventPage/StudentEventPage';
+import EventCommentaryAdminPage from '../pages/EventCommentaryAdminPage/EventCommentaryAdminPage';
+import EventCommentaryCommonPage from '../pages/EventCommentaryCommonPagecopy/EventCommentaryCommonPage';
 
 import Footer from '../components/Footer/Footer';
 import { PrivateRoute } from './PrivateRoute';
@@ -32,6 +34,20 @@ const RouteView = () => {
                     path="/eventos-aluno"
                     element={ 
                         <StudentEventPage/>
+                    } 
+                />
+                <Route 
+                    path="/comentarios-aluno"
+                    element={ 
+                        <EventCommentaryCommonPage/>
+                    } 
+                />
+                <Route 
+                    path="/comentarios-administrador"
+                    element={ 
+                        <PrivateRoute>
+                            <EventCommentaryAdminPage/>
+                        </PrivateRoute>
                     } 
                 />
                 <Route 
