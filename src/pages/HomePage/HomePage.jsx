@@ -4,7 +4,7 @@ import './HomePage.css';
 import Banner from '../../components/Banner/Banner';
 import VisionSection from '../../components/VisionSection/VisionSection';
 import ContactSection from '../../components/ContactSection/ContactSection';
-import NextEvent from '../../components/NextEvent/NextEvent';
+import EventCard from '../../components/EventCard/EventCard';
 import Title from '../../components/Title/Title';
 import Container from '../../components/Container/Container';
 
@@ -15,7 +15,9 @@ import Notification from '../../components/Notification/Notification';
 
 const HomePage = () => {
     const [nextEvents, setNextEvents] = useState([]);
-    const [notifyUser, setNotifyUser] = useState()
+    const [previousEvents, setPreviousEvents] = useState([])
+
+    const [notifyUser, setNotifyUser] = useState();
 
     const getNextEvents = async () => {
         try {
@@ -23,14 +25,22 @@ const HomePage = () => {
             const data = promise.data;
 
             setNextEvents(data);
+        } catch(error) {
+            notifyError('Houve um error no carregamento de informações. Verifique a sua conexão com a internet!');
         }
-        catch(error) {
-            notifyError('Houve um error no carregamento de informações. Verifique a sua conexão com a internet!')
+    }
+    
+    const getPreviousEvents = async () => {
+        try {
+            alert('Carregando eventos anteriores')
+        } catch(error) {
+            notifyError('Houve um error no carregamento de informações. Verifique a sua conexão com a internet!');
         }
     }
 
     useEffect(() => {
         getNextEvents();
+        getPreviousEvents();
     }, []);
 
     function notifyError(textNote) {
@@ -55,11 +65,34 @@ const HomePage = () => {
                         <div className="events-box">
                             { nextEvents.map(nextEvent => {
                                 return (
-                                    <NextEvent key={ nextEvent.idEvento }
-                                            title={ nextEvent.nomeEvento } 
-                                            description={ nextEvent.descricao } 
-                                            date={ nextEvent.dataEvento } 
-                                            idEvent={ nextEvent.idEvento } />
+                                    <EventCard 
+                                        key={ nextEvent.idEvento }
+                                        title={ nextEvent.nomeEvento } 
+                                        description={ nextEvent.descricao } 
+                                        date={ nextEvent.dataEvento } 
+                                        idEvent={ nextEvent.idEvento } 
+                                        buttonText='Conectar'
+                                    />
+                                    )
+                                })}
+                        </div>
+                    </Container>
+                </section>
+                <section className='proximos-eventos'>
+                    <Container>
+                        <Title text='Eventos Anteriores' />
+
+                        <div className="events-box">
+                            { previousEvents.map(previousEvent => {
+                                return (
+                                    <EventCard 
+                                        key={ previousEvent.idEvento }
+                                        title={ previousEvent.nomeEvento } 
+                                        description={ previousEvent.descricao } 
+                                        date={ previousEvent.dataEvento } 
+                                        idEvent={ previousEvent.idEvento } 
+                                        buttonText='Visualizar'
+                                    />
                                 )
                             })}
                         </div>

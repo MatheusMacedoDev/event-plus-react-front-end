@@ -1,11 +1,11 @@
 import React from 'react';
-import './NextEvent.css';
+import './EventCard.css';
 
 import { Tooltip } from 'react-tooltip';
 
 import { dateFormatDbToView } from '../../utils/stringFunctions';
 
-const NextEvent = ( {title, description, date, idEvent} ) => {
+const NextEvent = ( {title, description, date, idEvent, buttonText} ) => {
     function conectar(e) {
         e.preventDefault();
         alert(`Conectando: ${idEvent}`)
@@ -24,7 +24,7 @@ const NextEvent = ( {title, description, date, idEvent} ) => {
                 <Tooltip id={idEvent} className='tooltip' />
             </p>
             <p className="event-card__description">{dateFormatDbToView(date)}</p>
-            <a onClick={conectar} className="event-card__connect-link">Conectar</a>
+            <a onClick={conectar} className="event-card__connect-link">{buttonText}</a>
         </article>
     );
 };
