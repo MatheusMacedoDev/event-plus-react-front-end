@@ -16,7 +16,7 @@ import EventImage from '../../assets/images/evento.svg';
 import { UserContext } from '../../context/AuthContext';
 
 // Constraints
-const INSTITUTION_ID = '6bbd863e-5f50-4834-b2b6-7afc6f2ceec5';
+const INSTITUTION_ID = 'a986876c-0b99-4460-bd2c-c7480edda82a';
 
 const EventPage = () => {
     // Global
@@ -87,9 +87,9 @@ const EventPage = () => {
 
         try {
             const eventsResponse = await api.get(eventsResource, {
-                headers: {
-                    'Authorization': `bearer ${userData.token}`
-                }
+                // headers: {
+                //     'Authorization': `bearer ${userData.token}`
+                // }
             });
             const data = eventsResponse.data.map(event => {
                 return {
