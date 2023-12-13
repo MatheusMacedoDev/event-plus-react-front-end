@@ -278,6 +278,7 @@ const EventPage = () => {
                                     required={true}
                                     options={eventTypes}
                                     value={eventTypeId}
+                                    firstOption='Selecione'
                                     handleChange={e => {
                                         setEventTypeId(e.target.value)
                                     }}
@@ -313,9 +314,11 @@ const EventPage = () => {
                                                 />
                                                 <Button 
                                                     id='cancelButton'
+                                                    type='reset'
                                                     name='cancelButton'
                                                     textButton='Cancelar'
                                                     additionalClassName='button-component--middle'
+                                                    handleClick={resetForm}
                                                 />
                                             </div>
                                         </>

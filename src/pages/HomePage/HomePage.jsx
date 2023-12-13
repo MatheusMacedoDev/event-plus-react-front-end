@@ -9,7 +9,7 @@ import Title from '../../components/Title/Title';
 import Container from '../../components/Container/Container';
 
 import api from '../../services/apiAcessor';
-import { listNextEventsResource } from '../../services/apiResources';
+import { listNextEventsResource, listPreviousEventsResource } from '../../services/apiResources';
 
 import Notification from '../../components/Notification/Notification';
 
@@ -32,7 +32,10 @@ const HomePage = () => {
     
     const getPreviousEvents = async () => {
         try {
-            alert('Carregando eventos anteriores')
+            const promise = await api.get(listPreviousEventsResource);
+            const data = promise.data;
+
+            setPreviousEvents(data);
         } catch(error) {
             notifyError('Houve um error no carregamento de informações. Verifique a sua conexão com a internet!');
         }
@@ -72,9 +75,7 @@ const HomePage = () => {
                                         date={ nextEvent.dataEvento } 
                                         idEvent={ nextEvent.idEvento } 
                                         buttonText='Conectar'
-                                        onButtonClick={() => {
-                                            alert('Conectando...');
-                                        }}
+                                        buttonLink='/eventos-aluno'
                                     />
                                 )
                             })}
@@ -95,9 +96,7 @@ const HomePage = () => {
                                         date={ previousEvent.dataEvento } 
                                         idEvent={ previousEvent.idEvento } 
                                         buttonText='Visualizar'
-                                        onButtonClick={() => {
-                                            alert('Vizualizando...');
-                                        }}
+                                        buttonLink={`/comentarios/${previousEvent.idEvento}`}
                                     />
                                 )
                             })}

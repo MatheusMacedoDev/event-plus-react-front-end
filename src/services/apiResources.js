@@ -7,6 +7,10 @@ export const eventsResource = 'Evento';
  */
 export const listNextEventsResource = 'Evento/ListarProximos';
 /**
+ * Resource that list all previous events
+ */
+export const listPreviousEventsResource = 'Evento/ListarAnteriores';
+/**
  * Resource of Event Types
  */
 export const eventTypesResource = 'TiposEvento';
@@ -23,5 +27,3 @@ export const eventPresencesResource = 'PresencasEvento';
  * Resource of Commentary
  */
 export const CommentaryResource = 'ComentariosEvento';
-
-

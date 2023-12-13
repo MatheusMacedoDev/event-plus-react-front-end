@@ -59,7 +59,7 @@ export const Select = ( {
     additionalClassNmae = '',
     handleClick,
     value = '',
-    firstOption = 'Selecione'
+    firstOption = ''
 } ) => {
     return (
         <select 
@@ -71,7 +71,7 @@ export const Select = ( {
             value={value}
         >
             {
-                (value !== '') 
+                (firstOption !== '') 
                     ? <option value="">{`${firstOption}:`}</option>
                     : ''
             }
