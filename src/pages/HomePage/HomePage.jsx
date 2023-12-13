@@ -96,7 +96,7 @@ const HomePage = () => {
                                         date={ previousEvent.dataEvento } 
                                         idEvent={ previousEvent.idEvento } 
                                         buttonText='Visualizar'
-                                        buttonLink={`/comentarios/${previousEvent.idEvento}`}
+                                        buttonLink={`/comentarios/${previousEvent.idEvento}/${previousEvent.nomeEvento}`}
                                     />
                                 )
                             })}

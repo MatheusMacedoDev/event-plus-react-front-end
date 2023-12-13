@@ -36,7 +36,7 @@ const RouteView = () => {
                     } 
                 />
                 <Route 
-                    path="/comentarios/:idEvento"
+                    path="/comentarios/:idEvento/:nomeEvento"
                     element={ 
                         <EventCommentaryPage/>
                     } 
