@@ -12,7 +12,6 @@ import { eventsResource, eventPresencesResource, CommentaryResource } from '../.
 
 import "./StudentEventPage.css";
 import { UserContext } from "../../context/AuthContext";
-import { all } from "axios";
 
 const StudentEventPage = () => {
   // state do menu mobile
@@ -184,9 +183,8 @@ const StudentEventPage = () => {
     setShowSpinner(true);
 
     try {
-      await api.post(CommentaryResource, {
+      await api.post(`${CommentaryResource}/PostComentarioAI`, {
         descricao: commentaryText,
-        exibe: true,
         idUsuario: userData.id,
         idEvento: currentEventIdOnComment
       })

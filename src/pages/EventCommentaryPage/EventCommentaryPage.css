@@ -1,7 +1,21 @@
 .wrapper {
-    padding: 100px 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    padding: 90px 200px;
 }
 
 .commentaries__box {
+    display: flex;
+    flex-direction: column;
     margin-top: 40px;
+    gap: 20px;
+}
+
+@media screen and (min-width: 992px) {
+    .commentaries__box {
+        flex-direction: row;
+    }
 }

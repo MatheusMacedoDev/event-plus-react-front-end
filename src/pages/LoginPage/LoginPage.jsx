@@ -15,7 +15,7 @@ import { useNavigate } from 'react-router-dom';
 import { userDecodeToken, UserContext } from '../../context/AuthContext';
 
 const LoginPage = () => {
-    const [user, setUser] = useState({email: 'admin@admin.com', senha: ''})
+    const [user, setUser] = useState({email: 'admin@gmail.com', senha: ''})
     const {userData, setUserData} = useContext(UserContext);
 
     const navigate = useNavigate();

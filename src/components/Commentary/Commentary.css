@@ -1,15 +1,26 @@
-.commentary__box {
+.commentary {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
 
-    width: 15vw;
-    height: 30vh;
+    width: 200px;
+    height: 40vh;
 
     border: solid 1px #B51D44;
     border-radius: 15px;
     padding: 30px;
     margin-top: 100px;
+
+    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.144);
+}
+
+.commentary--danger {
+    background-color: #b51d4312;
+}
+
+.commentary__image {
+    align-self: center;
+    width: 20vw;
 }
 
 .commentary__description {
@@ -20,4 +31,36 @@
 .commentary__author {
     font-weight: bold;
     margin-top: 10px;
+}
+
+.tooltip {
+    color: #fff !important;
+    background-color: #B51D44 !important;
+    max-width: 300px;
+  }
+
+@media screen and (min-width: 992px) {
+    .commentary__box {
+        justify-content: space-around;
+        flex-direction: column;
+    
+        width: 20vw;
+        height: 40vh;
+    
+        padding: 30px;
+        margin-top: 50px;
+    }
+    
+    .commentary__image {
+        width: 6vw;
+    }
+    
+    .commentary__description {
+        max-height: 15vh;
+        overflow: hidden;
+    }
+    
+    .commentary__author {
+        margin-top: 10px;
+    }
 }

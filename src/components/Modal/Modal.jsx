@@ -119,7 +119,7 @@ const Modal = ({
                 />
         
                 <Button
-                  buttonText="Comentar"
+                  textButton="Comentar"
                   additionalClassName="comentary__button"
                   handleClick={async () => {
                     if (newCommentaryText.length < 3) {

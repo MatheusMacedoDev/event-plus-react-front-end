@@ -1,0 +1,17 @@
+.event-info {
+    display: flex;
+
+    margin: 70px 10px;
+}
+
+.event-info__box {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+
+    padding: 40px;
+}
+
+.event-info__image {
+    width: 500px;
+}
