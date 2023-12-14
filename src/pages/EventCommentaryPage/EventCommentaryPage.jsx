@@ -41,7 +41,7 @@ const EventCommentaryCommonPage = () => {
                         commentaries.map(commentary => {
                             return (
                                 <Commentary 
-                                    id={commentary.idComentarioEvento}
+                                    key={commentary.idComentarioEvento}
                                     description={commentary.descricao}
                                     author={commentary.usuario.nome}
                                 />

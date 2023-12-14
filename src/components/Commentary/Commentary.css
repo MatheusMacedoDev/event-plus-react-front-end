@@ -1,4 +1,23 @@
 .commentary__box {
-    border: solid 1px red;
-    padding: 20px;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+
+    width: 15vw;
+    height: 30vh;
+
+    border: solid 1px #B51D44;
+    border-radius: 15px;
+    padding: 30px;
+    margin-top: 100px;
+}
+
+.commentary__description {
+    max-height: 15vh;
+    overflow-y: scroll;
+}
+
+.commentary__author {
+    font-weight: bold;
+    margin-top: 10px;
 }
