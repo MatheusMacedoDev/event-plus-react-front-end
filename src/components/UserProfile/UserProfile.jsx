@@ -25,8 +25,6 @@ const UserProfile = () => {
                 <>
                     <span className="perfil-usuario__menuitem">{userData.nome}</span>
         
-                    <span className="perfil-usuario__menuitem"></span>
-        
                     <img
                         title="Deslogar"
                         className="perfil-usuario__icon"

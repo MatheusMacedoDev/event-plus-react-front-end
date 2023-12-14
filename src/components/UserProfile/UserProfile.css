@@ -9,7 +9,7 @@
 }
 
 .perfil-usuario {
-    width: 135px;
+    width: 150px;
     /* height: 40px; */
     display: flex;
     justify-content: space-between;
@@ -24,6 +24,7 @@
     font-size: 1rem;
     color: #201849;
     text-decoration: none;
+    margin-right: 10px;
 }
 
 .perfil-usuario__icon {
@@ -31,4 +32,5 @@
     margin-top: 5px;
     cursor: pointer;
 }
+
 /* 201849 */

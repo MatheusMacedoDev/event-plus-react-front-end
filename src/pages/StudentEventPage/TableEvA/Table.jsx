@@ -34,6 +34,8 @@ const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
       </thead>
       <tbody>
         {dados.map((e) => {
+          const isNextEvent = new Date() < new Date(e.dataEvento);
+
           return (
             <tr className="tbal-data__head-row" key={Math.random()}>
               <td className="tbal-data__data tbal-data__data--big">
@@ -60,15 +62,26 @@ const Table = ({ dados, fnConnect = null, fnShowModal = null }) => {
               </td>
 
               <td className="tbal-data__data tbal-data__data--big tbal-data__btn-actions">
-                <img
-                  className="tbal-data__icon"
-                  idevento={e.idEvento}
-                  src={comentaryIcon}
-                  alt=""
-                  onClick={() => fnShowModal(e.idEvento)}
-                />
+                {
+                   !isNextEvent
+                    ? (
+                      <img
+                        className="tbal-data__icon"
+                        idevento={e.idEvento}
+                        src={comentaryIcon}
+                        alt=""
+                        onClick={() => fnShowModal(e.idEvento)}
+                      />
+                    ) : ''
+                }
+                
+                {
+                   isNextEvent
+                    ? (
+                      <Toggle manipulationFunction={() => fnConnect(e.idEvento, e.situacao, e.idPresencaEvento)} id={e.idEvento} toggleActive={e.situacao}/>
+                    ) : ''
+                }
 
-                <Toggle manipulationFunction={() => fnConnect(e.idEvento, e.situacao, e.idPresencaEvento)} id={e.idEvento} toggleActive={e.situacao}/>
               </td>
             </tr>
           );

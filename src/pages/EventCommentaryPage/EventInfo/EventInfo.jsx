@@ -17,8 +17,6 @@ const EventInfo = ({ eventId }) => {
             const response = await api.get(`/${eventsResource}/${eventId}`)
             const data = response.data;
 
-            console.log(data);
-
             setEvent(data);
         }
 
@@ -29,10 +27,10 @@ const EventInfo = ({ eventId }) => {
         <section className="event-info">
             <img src={EventImage} alt="Imagem que representa o evento." className='event-info__image' />
             <div className="event-info__box">
-                <p className="event-info__text"><strong>Título:</strong> {event.nomeEvento}</p>
-                <p className="event-info__text"><strong>Descrição:</strong> {event.descricao}</p>
-                <p className="event-info__text"><strong>Tipo do Evento:</strong> {event.tiposEvento.titulo}</p>
-                <p className="event-info__text"><strong>Data:</strong> {dateFormatDbToView(event.dataEvento)}</p>
+                <p className="event-info__text"><strong className='event-info__text--highlight'>Título:</strong> {event.nomeEvento}</p>
+                <p className="event-info__text"><strong className='event-info__text--highlight'>Descrição:</strong> {event.descricao}</p>
+                <p className="event-info__text"><strong className='event-info__text--highlight'>Tipo do Evento:</strong> {event.tiposEvento.titulo}</p>
+                <p className="event-info__text"><strong className='event-info__text--highlight'>Data:</strong> {dateFormatDbToView(event.dataEvento)}</p>
             </div>
         </section>
     );

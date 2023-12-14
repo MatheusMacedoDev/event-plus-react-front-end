@@ -15,3 +15,7 @@
 .event-info__image {
     width: 500px;
 }
+
+.event-info__text--highlight:hover {
+    color: #B51D44;
+}

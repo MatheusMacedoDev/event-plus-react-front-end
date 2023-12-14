@@ -1,6 +1,6 @@
-import RouteView from './routes/routes';
-
 import { useState, useEffect } from 'react';
+
+import RouteView from './routes/routes';
 
 import { UserContext } from './context/AuthContext';
 

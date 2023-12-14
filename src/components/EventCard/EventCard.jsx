@@ -1,27 +1,72 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import './EventCard.css';
 
+import Notification from '../../components/Notification/Notification'
 import { Tooltip } from 'react-tooltip';
 
 import { dateFormatDbToView } from '../../utils/stringFunctions';
 import { Link } from 'react-router-dom';
 
+import { UserContext } from '../../context/AuthContext';
+
 const EventCard = ( {title, description, date, idEvent, buttonText, buttonLink} ) => {
+    const { userData } = useContext(UserContext);
+
+    // Notification
+    const [notifyUser, setNotifyUser] = useState({});
+
+    function verifyIsLoggedIn() {
+        if (!userData) {
+            notifyWarning('Por favor, entre em sua conta para acessar esse recurso.')
+        }
+    }
+
+    function verifyIsAdmin() {
+        if (userData && userData.role === 'Administrador') {
+            notifyWarning('Essa página é acessível somente usuários comuns.')
+        }
+    }
+
+    function verify() {
+        verifyIsLoggedIn();
+        verifyIsAdmin();
+    }
+
+    function notifyWarning(textNote) {
+        setNotifyUser({
+            titleNote: "Aviso",
+            textNote,
+            imgIcon: 'warning',
+            imgAlt: 'Imagem de ilustração de aviso. Mulher em frente a um grande ponto de exclamação.',
+            showMessage: true
+        });
+    }
+
     return (
-        <article className='event-card'>
-            <h2 className="event-card__title">{title.substring(0, 15)}...</h2>
-            <p 
-                className="event-card__description"
-                data-tooltip-id={idEvent}
-                data-tooltip-content={description}
-                data-tooltip-place="top"
-            >
-                {description.substring(0, 15)}...
-            </p>
-            <Tooltip id={idEvent} className='tooltip' />
-            <p className="event-card__description">{dateFormatDbToView(date)}</p>
-            <Link to={buttonLink} className="event-card__connect-link">{buttonText}</Link>
-        </article>
+        <>
+            { <Notification {...notifyUser} setNotifyUser={setNotifyUser} /> }
+            <article className='event-card'>
+                <h2 
+                    className="event-card__title"
+                    data-tooltip-id={idEvent}
+                    data-tooltip-content={title}
+                    data-tooltip-place="top"
+                >{title.substring(0, 15)}...</h2>
+                <p 
+                    className="event-card__description"
+                    data-tooltip-id={idEvent}
+                    data-tooltip-content={description}
+                    data-tooltip-place="top"
+                >
+                    {description.substring(0, 15)}...
+                </p>
+                <Tooltip id={idEvent} className='tooltip' />
+                <p className="event-card__description">{dateFormatDbToView(date)}</p>
+                <span className="event-card__connect-link" onClick={verify}>
+                    <Link style={{pointerEvents: userData && !(userData.role == 'Administrador' && buttonText == 'Conectar') ? '' : 'none'}} to={buttonLink} className="event-card__connect-link">{buttonText}</Link>
+                </span>
+            </article>
+        </>
     );
 };
 

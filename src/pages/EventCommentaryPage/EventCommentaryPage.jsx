@@ -1,14 +1,24 @@
+// React Imports
+
 import React, { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+
+// Internal Components
 
 import Title from '../../components/Title/Title';
 import Commentary from '../../components/Commentary/Commentary';
 import EventInfo from './EventInfo/EventInfo';
 
+// API
+
 import api from '../../services/apiAcessor';
 import { CommentaryResource } from '../../services/apiResources';
 
+// Context
+
 import { UserContext } from "../../context/AuthContext";
+
+// CSS
 
 import './EventCommentaryPage.css'
 
@@ -39,19 +49,16 @@ const EventCommentaryCommonPage = () => {
 
                 <Title text='Comentários' />
                 <section className="commentaries__box">
-
                     {
-                        commentaries.map(commentary => {
-                            return (
-                                <Commentary 
-                                    id={commentary.idComentarioEvento}
-                                    key={commentary.idComentarioEvento}
-                                    description={commentary.descricao}
-                                    author={commentary.usuario.nome}
-                                    isDanger={!commentary.exibe}
-                                />
-                            )
-                        })
+                        commentaries.map(commentary => (
+                            <Commentary 
+                                key={commentary.idComentarioEvento}
+                                id={commentary.idComentarioEvento}
+                                description={commentary.descricao}
+                                author={commentary.usuario.nome}
+                                isDanger={!commentary.exibe}
+                            />
+                        ))
                     }
                 </section>
             </div>

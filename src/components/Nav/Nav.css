@@ -123,4 +123,12 @@
         color: var(--color-dark-blue);
         border: none;
     }
+
+    .navbar__item:hover {
+        color: #B51D44;
+    }
+
+    .navbar__item:active {
+        color: #691328;
+    }
 }
