@@ -63,57 +63,59 @@ const HomePage = () => {
             {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
             <main>
                 <Banner />
-                <motion.section 
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    transition={{ duration: 1 }}
-                    className='proximos-eventos'
-                >
-                    <Container>
-                        <Title text='Próximos Eventos' />
+                <section className='home-events'>
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        transition={{ duration: 1 }}
+                        className='proximos-eventos'
+                    >
+                        <Container>
+                            <Title text='Próximos Eventos' />
 
-                        <div className="events-box">
-                            { nextEvents.map(nextEvent => {
-                                return (
-                                    <EventCard 
-                                        key={ nextEvent.idEvento }
-                                        title={ nextEvent.nomeEvento } 
-                                        description={ nextEvent.descricao } 
-                                        date={ nextEvent.dataEvento } 
-                                        idEvent={ nextEvent.idEvento } 
-                                        buttonText='Conectar'
-                                        buttonLink='/eventos-aluno'
-                                    />
-                                )
-                            })}
-                        </div>
-                    </Container>
-                </motion.section>
-                <motion.section 
-                    initial={{ opacity: 0 }}
-                    whileInView={{ opacity: 1 }}
-                    className='proximos-eventos'
-                >
-                    <Container>
-                        <Title text='Eventos Anteriores' />
+                            <div className="events-box">
+                                { nextEvents.map(nextEvent => {
+                                    return (
+                                        <EventCard 
+                                            key={ nextEvent.idEvento }
+                                            title={ nextEvent.nomeEvento } 
+                                            description={ nextEvent.descricao } 
+                                            date={ nextEvent.dataEvento } 
+                                            idEvent={ nextEvent.idEvento } 
+                                            buttonText='Conectar'
+                                            buttonLink='/eventos-aluno'
+                                        />
+                                    )
+                                })}
+                            </div>
+                        </Container>
+                    </motion.div>
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        whileInView={{ opacity: 1 }}
+                        className='proximos-eventos'
+                    >
+                        <Container>
+                            <Title text='Eventos Anteriores' />
 
-                        <div className="events-box">
-                            { previousEvents.map(previousEvent => {
-                                return (
-                                    <EventCard 
-                                        key={ previousEvent.idEvento }
-                                        title={ previousEvent.nomeEvento } 
-                                        description={ previousEvent.descricao } 
-                                        date={ previousEvent.dataEvento } 
-                                        idEvent={ previousEvent.idEvento } 
-                                        buttonText='Visualizar'
-                                        buttonLink={`/comentarios/${previousEvent.idEvento}/${previousEvent.nomeEvento}`}
-                                    />
-                                )
-                            })}
-                        </div>
-                    </Container>
-                </motion.section>
+                            <div className="events-box">
+                                { previousEvents.map(previousEvent => {
+                                    return (
+                                        <EventCard 
+                                            key={ previousEvent.idEvento }
+                                            title={ previousEvent.nomeEvento } 
+                                            description={ previousEvent.descricao } 
+                                            date={ previousEvent.dataEvento } 
+                                            idEvent={ previousEvent.idEvento } 
+                                            buttonText='Visualizar'
+                                            buttonLink={`/comentarios/${previousEvent.idEvento}/${previousEvent.nomeEvento}`}
+                                        />
+                                    )
+                                })}
+                            </div>
+                        </Container>
+                    </motion.div>
+                </section>
                 <VisionSection />
                 <ContactSection />
             </main>

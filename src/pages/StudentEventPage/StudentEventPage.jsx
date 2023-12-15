@@ -230,7 +230,7 @@ const StudentEventPage = () => {
       {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
       <Main>
         <Container>
-          <Title titleText={"Eventos"} className="custom-title" />
+          <Title text={"Eventos"} additionalClassName="custom-title" />
 
           <Select
             id="id-tipo-evento"

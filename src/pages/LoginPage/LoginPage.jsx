@@ -76,9 +76,9 @@ const LoginPage = () => {
                 className="frm-login"
             >
                 <motion.img
-                    initial={{ scale: 0.9, rotate: -3 }}
-                    animate={{ scale: 1.1, rotate: 3 }}
-                    transition={{ repeat: Infinity, repeatType: "mirror", duration: 2 }}
+                    initial={{ scale: 0.8 }}
+                    whileHover={{ scale: 0.9 }}
+                    transition={{ duration: 0.5 }}
                     src={logo}
                     className="frm-login__logo"
                     alt=""

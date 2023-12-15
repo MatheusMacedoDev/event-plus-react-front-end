@@ -33,6 +33,14 @@
     margin-top: 20px;
 }
 
+.button-component:hover {
+    background-color: rgb(199, 34, 75);
+}
+
+.button-component:active {
+    background-color: #A31A3D;
+}
+
 @media screen and (min-width: 992px) {
     .button-component--middle {
         width: 45%;

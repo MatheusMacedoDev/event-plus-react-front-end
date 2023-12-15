@@ -10,7 +10,7 @@ const Title = ( {text, color = '', additionalClassName} ) => {
             initial={{ opacity: 0, scale: 0.6 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.5 }}
-            className={ `title ${additionalClassName}` } 
+            className={ `title ${additionalClassName || ''}` } 
             style={ {color: color} }
         >
             {text}

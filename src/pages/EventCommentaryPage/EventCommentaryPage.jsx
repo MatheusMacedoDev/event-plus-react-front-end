@@ -34,6 +34,12 @@ const EventCommentaryCommonPage = () => {
 
     const { userData } = useContext(UserContext);
 
+    function scrollUp() {
+        window.scrollTo({ top: 0 });
+    }
+
+    scrollUp()
+
     useEffect(() => {
         async function getCommentaries() {
             setShowSpinner(true);

@@ -9,7 +9,7 @@
   }
   
   .vision {
-    margin-top: 50px;
+    padding: 50px 0;
     width: 100%;
     height: 742px;
     background-color: var(--color-red);
@@ -22,6 +22,9 @@
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
   }
   
   .vision__title {
