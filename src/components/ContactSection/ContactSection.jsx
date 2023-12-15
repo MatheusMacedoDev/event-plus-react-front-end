@@ -4,7 +4,7 @@ import './ContactSection.css';
 import Title from '../Title/Title';
 import ContatoMap from '../../assets/images/contato-map.png';
 
-import { motion } from 'framer-motion';
+import { motion, spring } from 'framer-motion';
 
 const ContactSection = () => {
     return (
@@ -15,7 +15,7 @@ const ContactSection = () => {
                 <motion.img
                     initial={{ opacity: 0, x: -100 }}
                     whileInView={{ opacity: 1, x: 0 }} 
-                    transition={{ duration: 0.5 }}
+                    transition={{ type: "spring", stiffness: 100 }}
                     src={ContatoMap} 
                     alt="Imagem puramente ilustrativa de um mapa" 
                     className='contato__img-map'
@@ -23,7 +23,7 @@ const ContactSection = () => {
                 <motion.p
                     initial={{ opacity: 0, x: 100 }}
                     whileInView={{ opacity: 1, x: 0 }} 
-                    transition={{ duration: 0.5 }}
+                    transition={{ type: "spring", stiffness: 100 }}
                 >
                     Rua Niterói, 180 - Centro <br />
                     São Caetano do Sul - SP <br />

@@ -49,9 +49,7 @@ const EventCard = ( {title, description, date, idEvent, buttonText, buttonLink} 
             { <Notification {...notifyUser} setNotifyUser={setNotifyUser} /> }
             <motion.article 
                 whileHover={{ scale: 1.1 }}
-                initial={{ opacity: 0 }}
-                whileInView={{ opacity: 1 }}
-                transition={{ duration: 1 }}
+                transition={{ duration: 0.3 }}
                 className='event-card'
             >
                 <h2 

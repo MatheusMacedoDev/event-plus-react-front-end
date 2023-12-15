@@ -13,6 +13,8 @@ import { listNextEventsResource, listPreviousEventsResource } from '../../servic
 
 import Notification from '../../components/Notification/Notification';
 
+import { motion } from 'framer-motion'
+
 const HomePage = () => {
     const [nextEvents, setNextEvents] = useState([]);
     const [previousEvents, setPreviousEvents] = useState([])
@@ -61,7 +63,12 @@ const HomePage = () => {
             {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
             <main>
                 <Banner />
-                <section className='proximos-eventos'>
+                <motion.section 
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    transition={{ duration: 1 }}
+                    className='proximos-eventos'
+                >
                     <Container>
                         <Title text='Próximos Eventos' />
 
@@ -81,8 +88,12 @@ const HomePage = () => {
                             })}
                         </div>
                     </Container>
-                </section>
-                <section className='proximos-eventos'>
+                </motion.section>
+                <motion.section 
+                    initial={{ opacity: 0 }}
+                    whileInView={{ opacity: 1 }}
+                    className='proximos-eventos'
+                >
                     <Container>
                         <Title text='Eventos Anteriores' />
 
@@ -102,7 +113,7 @@ const HomePage = () => {
                             })}
                         </div>
                     </Container>
-                </section>
+                </motion.section>
                 <VisionSection />
                 <ContactSection />
             </main>

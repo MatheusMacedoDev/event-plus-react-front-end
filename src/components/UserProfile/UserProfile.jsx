@@ -8,6 +8,8 @@ import "./UserProfile.css";
 import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 
+import { motion } from 'framer-motion'
+
 const UserProfile = () => {
     const { userData, setUserData } = useContext(UserContext);
 
@@ -34,7 +36,12 @@ const UserProfile = () => {
                     />
                 </>
             ) : (
-                <Link to='/login' className='navbar__item--dark'>Login</Link>
+                <motion.span
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                >     
+                    <Link to='/login' className='navbar__item--dark'>Login</Link>
+                </motion.span>
             ) }
         </div>
     );

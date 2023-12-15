@@ -14,6 +14,8 @@ import { useNavigate } from 'react-router-dom';
 
 import { userDecodeToken, UserContext } from '../../context/AuthContext';
 
+import { motion } from 'framer-motion'
+
 const LoginPage = () => {
     const [user, setUser] = useState({email: 'admin@gmail.com', senha: ''})
     const {userData, setUserData} = useContext(UserContext);
@@ -53,56 +55,76 @@ const LoginPage = () => {
     return (
         <div className="layout-grid-login">
         <div className="login">
-            <div className="login__illustration">
-            <div className="login__illustration-rotate"></div>
-            <ImageIllustrator
-                image={LoginImage}
-                altText="Imagem de um homem em frente de uma porta de entrada"
-                additionalClass="login-illustrator "
-            />
-            </div>
-
-            <div className="frm-login">
-            <img src={logo} className="frm-login__logo" alt="" />
-
-            <form className="frm-login__formbox" onSubmit={handleSubmit}>
-                <Input
-                    additionalClassName="frm-login__entry"
-                    type="email"
-                    id="login"
-                    name="login"
-                    required={true}
-                    value={user.email}
-                    handleChange={(e) => {
-                        setUser({ ...user, email: e.target.value.trim() })
-                    }}
-                    placeholder="E-mail:"
+            <motion.div 
+                initial={{ x: -500, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ delayChildren: 2 }}
+                className="login__illustration"
+            >
+                <div className="login__illustration-rotate"></div>
+                <ImageIllustrator
+                    image={LoginImage}
+                    altText="Imagem de um homem em frente de uma porta de entrada"
+                    additionalClass="login-illustrator "
                 />
-                <Input
-                    additionalClassName="frm-login__entry"
-                    type="password"
-                    id="senha"
-                    name="senha"
-                    required={true}
-                    value={user.senha}
-                    handleChange={(e) => {
-                        setUser({ ...user, senha: e.target.value.trim() })
-                    }}
-                    placeholder="Senha:"
+            </motion.div>
+
+            <motion.div 
+                initial={{ x: 400, opacity: 0 }}
+                animate={{ x: 0, opacity: 1 }}
+                transition={{ type: "spring" }}
+                className="frm-login"
+            >
+                <motion.img
+                    initial={{ scale: 0.9, rotate: -3 }}
+                    animate={{ scale: 1.1, rotate: 3 }}
+                    transition={{ repeat: Infinity, repeatType: "mirror", duration: 2 }}
+                    src={logo}
+                    className="frm-login__logo"
+                    alt=""
                 />
 
-                {/* <a href="" className="frm-login__link">
-                    Esqueceu a senha?
-                </a> */}
+                <motion.form
+                    className="frm-login__formbox" 
+                    onSubmit={handleSubmit}
+                >
+                    <Input
+                        additionalClassName="frm-login__entry"
+                        type="email"
+                        id="login"
+                        name="login"
+                        required={true}
+                        value={user.email}
+                        handleChange={(e) => {
+                            setUser({ ...user, email: e.target.value.trim() })
+                        }}
+                        placeholder="E-mail:"
+                    />
+                    <Input
+                        additionalClassName="frm-login__entry"
+                        type="password"
+                        id="senha"
+                        name="senha"
+                        required={true}
+                        value={user.senha}
+                        handleChange={(e) => {
+                            setUser({ ...user, senha: e.target.value.trim() })
+                        }}
+                        placeholder="Senha:"
+                    />
 
-                <Button
-                    textButton="Login"
-                    id="btn-login"
-                    name="btn-login"
-                    additionalClassName="frm-login__button"
-                />
-            </form>
-            </div>
+                    {/* <a href="" className="frm-login__link">
+                        Esqueceu a senha?
+                    </a> */}
+
+                    <Button
+                        textButton="Login"
+                        id="btn-login"
+                        name="btn-login"
+                        additionalClassName="frm-login__button"
+                    />
+                </motion.form>
+            </motion.div>
         </div>
         </div>
     );

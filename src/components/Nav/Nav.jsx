@@ -18,7 +18,15 @@ const Nav = ({ showMobileNavBar, toggleShowMobileNavBar }) => {
             <span className="navbar__close" onClick={toggleShowMobileNavBar}>x</span>
 
             <Link to='/' className="eventlogo">
-                <motion.img whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }} className='eventlogo__logo-image' src={window.innerWidth >= 992 ? LogoDeskTop : LogoMobile} alt="" />
+                <motion.img 
+                    initial={{ rotate: -3, opacity: 0.5 }}
+                    animate={{ rotate: 3, opacity: 1 }}
+                    transition={{ repeat: Infinity, repeatType: 'mirror', duration: 2 }}
+                    whileHover={{ scale: 1.2 }} 
+                    whileTap={{ scale: 0.9 }} 
+                    className='eventlogo__logo-image' 
+                    src={window.innerWidth >= 992 ? LogoDeskTop : LogoMobile} alt="" 
+                />
             </Link>
 
             <div className="navbar__items-box">

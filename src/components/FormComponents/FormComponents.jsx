@@ -13,7 +13,10 @@ export const Input = ( {
     handleChange
 } ) => {
     return (
-        <input 
+        <motion.input
+            initial={{ opacity: 0.5 }}
+            whileHover={{ opacity: 1 }}
+            whileFocus={{ scale: 1.1, opacity: 1 }}
             type={type} 
             id={id}
             name={name}

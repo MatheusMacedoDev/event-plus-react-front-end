@@ -81,9 +81,21 @@
     /* padding: 15px 15px 15px 2px; */
 
     font-family: Poppins-Regular;
-    font-size: 1rem;
-    color: var(--color-dark-blue);
+    font-size: 0.9rem;
+    color: var(--color-white);
     text-decoration: none;
+
+    background-color: #B51D44;
+    padding: 10px 20px;
+    border-radius: 30px;
+}
+
+.navbar__item--dark:hover {
+    background-color: rgb(199, 34, 75);
+}
+
+.navbar__item--dark:active {
+    background-color: #A31A3D;
 }
 
 
