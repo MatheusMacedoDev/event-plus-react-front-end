@@ -34,7 +34,7 @@ const UserProfile = () => {
                     />
                 </>
             ) : (
-                <Link to='/login' className='navbar__item'>Login</Link>
+                <Link to='/login' className='navbar__item--dark'>Login</Link>
             ) }
         </div>
     );

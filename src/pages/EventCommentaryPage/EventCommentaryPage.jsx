@@ -8,6 +8,8 @@ import { useParams } from 'react-router-dom';
 import Title from '../../components/Title/Title';
 import Commentary from '../../components/Commentary/Commentary';
 import EventInfo from './EventInfo/EventInfo';
+import Notification from '../../components/Notification/Notification';
+import Spinner from '../../components/Spinner/Spinner';
 
 // API
 
@@ -27,42 +29,78 @@ const EventCommentaryCommonPage = () => {
 
     const [commentaries, setCommentaries] = useState([]);
 
+    const [notifyUser, setNotifyUser] = useState()
+    const [showSpinner, setShowSpinner] = useState(false);
+
     const { userData } = useContext(UserContext);
 
     useEffect(() => {
         async function getCommentaries() {
-            const route = userData.role == 'Comum' ? 'GetForCommomByEvent' : 'GetForAdminByEvent';
-            const response = await api.get(`/${CommentaryResource}/${route}/${idEvento}`)
-            const data = response.data;
+            setShowSpinner(true);
 
-            setCommentaries(data);
+            try {
+                let route;
+                
+                if (userData) {
+                    route = userData.role == 'Comum' ? 'GetForCommomByEvent' : 'GetForAdminByEvent';
+                } else {
+                    route = 'GetForCommomByEvent';
+                }
+
+                const response = await api.get(`/${CommentaryResource}/${route}/${idEvento}`)
+                const data = response.data;
+    
+                setCommentaries(data);
+            } catch(err) {
+                notifyError('Erro no carregamento das informações. Verifique a sua conexão com a internet.')
+            }
+
+            setShowSpinner(false);
         }
 
         getCommentaries();
     }, []);
 
-    return (
-        <main>
-            <div className='wrapper'>
-                <Title text={`Evento: "${nomeEvento}"`} />
-                <EventInfo eventId={idEvento} />
+    function notifyError(textNote) {
+        setNotifyUser({
+            titleNote: "Erro",
+            textNote,
+            imgIcon: 'danger',
+            imgAlt: 'Imagem de ilustração de erro. Homem segurando um balão com símbolo de X.',
+            showMessage: true
+        });
+    }
 
-                <Title text='Comentários' />
-                <section className="commentaries__box">
-                    {
-                        commentaries.map(commentary => (
-                            <Commentary 
-                                key={commentary.idComentarioEvento}
-                                id={commentary.idComentarioEvento}
-                                description={commentary.descricao}
-                                author={commentary.usuario.nome}
-                                isDanger={!commentary.exibe}
-                            />
-                        ))
-                    }
-                </section>
-            </div>
-        </main>
+    return (
+        <>
+            {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
+            {showSpinner ? <Spinner /> : null}
+            <main>
+                <div className='wrapper'>
+                    <Title text={`Evento: "${nomeEvento}"`} />
+                    <EventInfo 
+                        eventId={idEvento} 
+                        notifyError={notifyError}
+                        setShowSpinner={setShowSpinner}
+                    />
+
+                    <Title text='Comentários' />
+                    <section className="commentaries__box">
+                        {
+                            commentaries.map(commentary => (
+                                <Commentary 
+                                    key={commentary.idComentarioEvento}
+                                    id={commentary.idComentarioEvento}
+                                    description={commentary.descricao}
+                                    author={commentary.usuario.nome}
+                                    isDanger={!commentary.exibe}
+                                />
+                            ))
+                        }
+                    </section>
+                </div>
+            </main>
+        </>
     );
 };
 

@@ -9,6 +9,8 @@ import { Link } from 'react-router-dom';
 
 import { UserContext } from '../../context/AuthContext';
 
+import { motion } from 'framer-motion';
+
 const EventCard = ( {title, description, date, idEvent, buttonText, buttonLink} ) => {
     const { userData } = useContext(UserContext);
 
@@ -16,7 +18,7 @@ const EventCard = ( {title, description, date, idEvent, buttonText, buttonLink} 
     const [notifyUser, setNotifyUser] = useState({});
 
     function verifyIsLoggedIn() {
-        if (!userData) {
+        if (!userData && buttonText === 'Conectar') {
             notifyWarning('Por favor, entre em sua conta para acessar esse recurso.')
         }
     }
@@ -45,7 +47,13 @@ const EventCard = ( {title, description, date, idEvent, buttonText, buttonLink} 
     return (
         <>
             { <Notification {...notifyUser} setNotifyUser={setNotifyUser} /> }
-            <article className='event-card'>
+            <motion.article 
+                whileHover={{ scale: 1.1 }}
+                initial={{ opacity: 0 }}
+                whileInView={{ opacity: 1 }}
+                transition={{ duration: 1 }}
+                className='event-card'
+            >
                 <h2 
                     className="event-card__title"
                     data-tooltip-id={idEvent}
@@ -62,10 +70,16 @@ const EventCard = ( {title, description, date, idEvent, buttonText, buttonLink} 
                 </p>
                 <Tooltip id={idEvent} className='tooltip' />
                 <p className="event-card__description">{dateFormatDbToView(date)}</p>
-                <span className="event-card__connect-link" onClick={verify}>
-                    <Link style={{pointerEvents: userData && !(userData.role == 'Administrador' && buttonText == 'Conectar') ? '' : 'none'}} to={buttonLink} className="event-card__connect-link">{buttonText}</Link>
-                </span>
-            </article>
+                <motion.span 
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    transition={{ duration: 0.3 }}
+                    className="event-card__connect-link" 
+                    onClick={verify}
+                >
+                    <Link style={{pointerEvents: !userData && buttonText === 'Visualizar' || userData && !(userData.role == 'Administrador' && buttonText == 'Conectar') ? '' : 'none'}} to={buttonLink} className="event-card__connect-link">{buttonText}</Link>
+                </motion.span>
+            </motion.article>
         </>
     );
 };

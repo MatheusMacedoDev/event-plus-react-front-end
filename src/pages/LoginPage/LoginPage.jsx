@@ -91,9 +91,9 @@ const LoginPage = () => {
                     placeholder="Senha:"
                 />
 
-                <a href="" className="frm-login__link">
+                {/* <a href="" className="frm-login__link">
                     Esqueceu a senha?
-                </a>
+                </a> */}
 
                 <Button
                     textButton="Login"

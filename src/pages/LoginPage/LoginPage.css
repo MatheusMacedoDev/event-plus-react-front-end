@@ -55,7 +55,7 @@
   
   .frm-login__button,
   .frm-login__entry {
-    margin-top: 40px;
+    margin-top: 60px;
   }
   
   .frm-login__entry {
@@ -132,7 +132,7 @@
     .frm-login__entry,
     .frm-login__button,
     .frm-login__link {
-      margin-top: 30px;
+      margin-top: 50px;
     }
   }
   

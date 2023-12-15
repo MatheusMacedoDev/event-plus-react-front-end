@@ -8,6 +8,8 @@ import LogoDeskTop from '../../assets/images/logo-pink.svg';
 
 import { UserContext, userDecodeToken } from '../../context/AuthContext';
 
+import { motion } from 'framer-motion';
+
 const Nav = ({ showMobileNavBar, toggleShowMobileNavBar }) => {
     const { userData } = useContext(UserContext);
 
@@ -16,21 +18,29 @@ const Nav = ({ showMobileNavBar, toggleShowMobileNavBar }) => {
             <span className="navbar__close" onClick={toggleShowMobileNavBar}>x</span>
 
             <Link to='/' className="eventlogo">
-                <img className='eventlogo__logo-image' src={window.innerWidth >= 992 ? LogoDeskTop : LogoMobile} alt="" />
+                <motion.img whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }} className='eventlogo__logo-image' src={window.innerWidth >= 992 ? LogoDeskTop : LogoMobile} alt="" />
             </Link>
 
             <div className="navbar__items-box">
-                <Link to='/' className='navbar__item'>Home</Link>
+                <motion.span whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }} className='navbar__item'>
+                    <Link to='/' className='navbar__item'>Home</Link>
+                </motion.span>
 
                 {
                     userData 
                         ? userData.role == "Administrador" ? (
                             <>
-                                <Link to='/tipo-eventos' className='navbar__item'>Tipos de Evento</Link>
-                                <Link to='/eventos' className='navbar__item'>Eventos</Link>
+                                <motion.span whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }} className='navbar__item'>
+                                    <Link to='/tipo-eventos' className='navbar__item'>Tipos de Evento</Link>
+                                </motion.span>
+                                <motion.span whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }} className='navbar__item'>
+                                    <Link to='/eventos' className='navbar__item'>Eventos</Link>
+                                </motion.span>
                             </>
                         ) : (
-                            <Link to='/eventos-aluno' className='navbar__item'>Eventos Aluno</Link>
+                            <motion.span whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }} className='navbar__item'>
+                                <Link to='/eventos-aluno' className='navbar__item'>Eventos Aluno</Link>
+                            </motion.span>
                         )
                     : ''
 

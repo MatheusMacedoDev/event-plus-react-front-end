@@ -1,5 +1,7 @@
 import './FormComponents.css';
 
+import { motion } from 'framer-motion';
+
 export const Input = ( {
     id,
     name,
@@ -38,7 +40,9 @@ export const Button = ( {
     handleClick
 } ) => {
     return (
-        <button 
+        <motion.button 
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.9 }}
             name={name}
             id={id}
             type={type}
@@ -46,7 +50,7 @@ export const Button = ( {
             className={`button-component ${additionalClassName}`}
         >
             {textButton}
-        </button>
+        </motion.button>
     )
 }
 

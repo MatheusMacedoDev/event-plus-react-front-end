@@ -18,7 +18,7 @@ import Notification from '../../components/Notification/Notification';
 
 import Spinner from '../../components/Spinner/Spinner';
 
-import { validate, minimumCharacters } from '../../services/validation';
+import { motion } from 'framer-motion';
 
 const EventTypePage = () => {
     const [isEditing, setIsEditing] = useState(false);
@@ -205,7 +205,13 @@ const EventTypePage = () => {
                                 altText='Imagem ilustrativa de tipo de evento.'
                             />
 
-                            <form className="ftipo-evento" onSubmit={isEditing ? handleUpdate : handleSubmit}>
+                            <motion.form 
+                                initial={{ x: 500, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ duration: 0.5 }}
+                                className="ftipo-evento" 
+                                onSubmit={isEditing ? handleUpdate : handleSubmit}
+                            >
                                 {
                                     !isEditing ? 
                                     (
@@ -263,7 +269,7 @@ const EventTypePage = () => {
                                         </>
                                     )
                                 }
-                            </form>
+                            </motion.form>
 
                             
                         </div>

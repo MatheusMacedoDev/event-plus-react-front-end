@@ -15,6 +15,8 @@ import EventImage from '../../assets/images/evento.svg';
 
 import { UserContext } from '../../context/AuthContext';
 
+import { motion } from 'framer-motion';
+
 // Constraints
 const INSTITUTION_ID = 'a986876c-0b99-4460-bd2c-c7480edda82a';
 
@@ -247,7 +249,12 @@ const EventPage = () => {
                                 altText='Imagem ilustrativa de evento.'
                             />
 
-                            <form className='ftipo-evento' onSubmit={isEditing ? update : register}>
+                            <motion.form
+                                initial={{ x: 500, opacity: 0 }}
+                                animate={{ x: 0, opacity: 1 }}
+                                transition={{ duration: 0.5 }}
+                                className='ftipo-evento' 
+                                onSubmit={isEditing ? update : register}>
                                 <Input 
                                     id='event-title'
                                     name='event-title'
@@ -324,7 +331,7 @@ const EventPage = () => {
                                         </>
                                     )
                                 }
-                            </form>
+                            </motion.form>
                         </div>
                     </Container>
                 </section>

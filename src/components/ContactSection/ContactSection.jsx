@@ -4,18 +4,27 @@ import './ContactSection.css';
 import Title from '../Title/Title';
 import ContatoMap from '../../assets/images/contato-map.png';
 
+import { motion } from 'framer-motion';
+
 const ContactSection = () => {
     return (
         <section className='contato'>
             <Title text='Contato'/>
 
             <div className="contato__endereco-box">
-                <img 
+                <motion.img
+                    initial={{ opacity: 0, x: -100 }}
+                    whileInView={{ opacity: 1, x: 0 }} 
+                    transition={{ duration: 0.5 }}
                     src={ContatoMap} 
                     alt="Imagem puramente ilustrativa de um mapa" 
                     className='contato__img-map'
                 />
-                <p>
+                <motion.p
+                    initial={{ opacity: 0, x: 100 }}
+                    whileInView={{ opacity: 1, x: 0 }} 
+                    transition={{ duration: 0.5 }}
+                >
                     Rua Niterói, 180 - Centro <br />
                     São Caetano do Sul - SP <br />
                     <a 
@@ -24,7 +33,7 @@ const ContactSection = () => {
                     >
                         (11) 4225-2000
                     </a>
-                </p>
+                </motion.p>
             </div>
         </section>
     );
