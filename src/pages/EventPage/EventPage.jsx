@@ -48,20 +48,21 @@ const EventPage = () => {
     async function register(event) {
         event.preventDefault();
         
-        if (new Date(getEventStates().dataEvento) < new Date()) {
-            notifyWarning('Um evento deve ser cadastrado no futuro!')
-            setShowSpinner(false);
-            return;
-        }
-
-        if (getEventStates().nomeEvento.length <= 5) {
+        
+        if (getEventStates().nomeEvento.length < 5) {
             notifyWarning('O nome do evento deve ter ao menos cinco caracteres!')
             setShowSpinner(false);
             return;
         }
-
-        if (getEventStates().descricao.length <= 10) {
+        
+        if (getEventStates().descricao.length < 10) {
             notifyWarning('A descrição do evento deve ter ao menos dez caracteres!')
+            setShowSpinner(false);
+            return;
+        }
+
+        if (new Date(getEventStates().dataEvento) < new Date()) {
+            notifyWarning('Um evento deve ser cadastrado no futuro!')
             setShowSpinner(false);
             return;
         }
@@ -140,13 +141,13 @@ const EventPage = () => {
             return;
         }
 
-        if (getEventStates().nomeEvento.length <= 5) {
+        if (getEventStates().nomeEvento.length < 5) {
             notifyWarning('O nome do evento deve ter ao menos cinco caracteres!')
             setShowSpinner(false);
             return;
         }
 
-        if (getEventStates().descricao.length <= 10) {
+        if (getEventStates().descricao.length < 10) {
             notifyWarning('A descrição do evento deve ter ao menos dez caracteres!')
             setShowSpinner(false);
             return;

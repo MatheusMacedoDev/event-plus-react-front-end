@@ -17,7 +17,7 @@ import { userDecodeToken, UserContext } from '../../context/AuthContext';
 import { motion } from 'framer-motion'
 
 const LoginPage = () => {
-    const [user, setUser] = useState({email: 'admin@gmail.com', senha: ''})
+    const [user, setUser] = useState({email: '', senha: ''})
     const {userData, setUserData} = useContext(UserContext);
 
     const navigate = useNavigate();

@@ -8,6 +8,7 @@ import EventCard from '../../components/EventCard/EventCard';
 import Title from '../../components/Title/Title';
 import Container from '../../components/Container/Container';
 import Carousel from '../../components/Carousel/Carousel'
+import Spinner from '../../components/Spinner/Spinner';
 
 import api from '../../services/apiAcessor';
 import { listNextEventsResource, listPreviousEventsResource } from '../../services/apiResources';
@@ -22,7 +23,12 @@ const HomePage = () => {
 
     const [notifyUser, setNotifyUser] = useState();
 
+    // Sppiner
+    const [showSpinner, setShowSpinner] = useState(false);
+
     const getNextEvents = async () => {
+        setShowSpinner(true);
+
         try {
             const promise = await api.get(listNextEventsResource);
             const data = promise.data;
@@ -31,9 +37,13 @@ const HomePage = () => {
         } catch(error) {
             notifyError('Houve um error no carregamento de informações. Verifique a sua conexão com a internet!');
         }
+
+        setShowSpinner(false);
     }
     
     const getPreviousEvents = async () => {
+        setShowSpinner(true);
+
         try {
             const promise = await api.get(listPreviousEventsResource);
             const data = promise.data;
@@ -42,6 +52,8 @@ const HomePage = () => {
         } catch(error) {
             notifyError('Houve um error no carregamento de informações. Verifique a sua conexão com a internet!');
         }
+
+        setShowSpinner(false);
     }
 
     useEffect(() => {
@@ -62,6 +74,7 @@ const HomePage = () => {
     return (
         <>
             {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
+            { showSpinner ? <Spinner /> : null }
             <main>
                 <Banner />
                 <section className='home-events'>

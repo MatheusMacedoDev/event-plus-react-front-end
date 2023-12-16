@@ -16,7 +16,7 @@ export const Input = ( {
         <motion.input
             initial={{ opacity: 0.5 }}
             whileHover={{ opacity: 1 }}
-            whileFocus={{ scale: 1.1, opacity: 1 }}
+            whileFocus={{ scale: 1.05, opacity: 1 }}
             type={type} 
             id={id}
             name={name}
@@ -44,7 +44,7 @@ export const Button = ( {
 } ) => {
     return (
         <motion.button 
-            whileHover={{ scale: 1.1 }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.9 }}
             name={name}
             id={id}

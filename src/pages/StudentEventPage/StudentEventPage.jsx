@@ -256,6 +256,7 @@ const StudentEventPage = () => {
 
       {showModal ? (
         <Modal
+          shouldShow={showModal}
           userId={userData.userId}
           showHideModal={showHideModal}
           fnGet={loadMyCommentary}

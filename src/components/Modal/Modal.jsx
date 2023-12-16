@@ -4,11 +4,15 @@ import trashDelete from "../../assets/images/trash-delete-red.png";
 import Notification from '../Notification/Notification';
 
 import { Button, Input } from "../FormComponents/FormComponents";
+
+import { motion, AnimatePresence } from 'framer-motion'
+
 import "./Modal.css";
 
 const Modal = ({
   modalTitle = "Feedback",
   userId = null,
+  shouldShow = false,
   showHideModal = false,
   fnGet = null,
   fnDelete = null,
@@ -74,73 +78,100 @@ const Modal = ({
   return (
     <>
       {<Notification {...notifyUser} setNotifyUser={setNotifyUser} />}
-      <div className="modal">
-        <article className="modal__box" style={haveCommentary ? {justifyContent: 'flex-start'} : {}}>
-          
-          <h3 className="modal__title">
-            {modalTitle}
-            <span className="modal__close" onClick={()=> showHideModal(true)}>x</span>
-          </h3>
+      <motion.div 
+        className="modal"
+      >
+        <AnimatePresence>
+          { showHideModal && (
+            <motion.article 
+              initial={{ opacity: 0, scale: 0.5, y: -50 }}
+              whileInView={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.5, y: -50 }}
+              transition={{ duration: 0.5 }}
+              className="modal__box" 
+              style={haveCommentary ? {justifyContent: 'flex-start'} : {}}
+            >
+              
+              <h3 className="modal__title">
+                {modalTitle}
+                <motion.span 
+                  initial={{ opacity: 0, x: 20, y: -20 }}
+                  whileInView={{ opacity: 1, x: 0, y: 0 }}
+                  whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.8 }}
+                  transition={{ duration: 0.2 }}
+                  className="modal__close" 
+                  onClick={() => {
+                    showHideModal(true)}
+                  }
+                >x</motion.span>
+              </h3>
 
-          <div className="comentary">
-            <h4 className="comentary__title">Comentário</h4>
+              <div className="comentary">
+                <h4 className="comentary__title">Comentário</h4>
+                
+                {
+                  haveCommentary ? (
+                    <motion.img
+                      initial={{ opacity: 0, x: 20, y: -20 }}
+                      whileInView={{ opacity: 1, x: 0, y: 0 }}
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.8 }}
+                      transition={{ duration: 0.2 }}
+                      src={trashDelete}
+                      className="comentary__icon-delete"
+                      alt="Ícone de uma lixeira"
+                      onClick={async () => {
+                        await fnDelete(postedCommentaryId)
+                        await getCommentary();
+
+                        notifySuccess('Comentário removido com sucesso.')
+                      }}
+                    />
+                  ) : ''
+                }
+
+                <p className="comentary__text">{!haveCommentary ? 'Nenhum comentário para exibir. Faça seu comentário' : postedCommentaryText}</p>
+
+                <hr className="comentary__separator" />
+              </div>
+
+              {
+                !haveCommentary ? (
+                  <>
+                    <Input
+                      placeholder="Escreva seu comentário..."
+                      className="comentary__entry"
+                      handleChange={e => {
+                        setNewCommentaryText(e.target.value);
+                      }}
+                      value={newCommentaryText}
+                    />
             
-            {
-              haveCommentary ? (
-                <img
-                  src={trashDelete}
-                  className="comentary__icon-delete"
-                  alt="Ícone de uma lixeira"
-                  onClick={async () => {
-                    await fnDelete(postedCommentaryId)
-                    await getCommentary();
+                    <Button
+                      textButton="Comentar"
+                      additionalClassName="comentary__button"
+                      handleClick={async () => {
+                        if (newCommentaryText.length < 3) {
+                          notifyWarning('Digite um comentário mais extenso!');
+                          return;
+                        }
 
-                    notifySuccess('Comentário removido com sucesso.')
-                  }}
-                />
-              ) : ''
-            }
+                        await fnNewCommentary(newCommentaryText)
+                        await getCommentary();
 
-            <p className="comentary__text">{!haveCommentary ? 'Nenhum comentário para exibir. Faça seu comentário' : postedCommentaryText}</p>
+                        setNewCommentaryText('');
 
-            <hr className="comentary__separator" />
-          </div>
-
-          {
-            !haveCommentary ? (
-              <>
-                <Input
-                  placeholder="Escreva seu comentário..."
-                  className="comentary__entry"
-                  handleChange={e => {
-                    setNewCommentaryText(e.target.value);
-                  }}
-                  value={newCommentaryText}
-                />
-        
-                <Button
-                  textButton="Comentar"
-                  additionalClassName="comentary__button"
-                  handleClick={async () => {
-                    if (newCommentaryText.length < 3) {
-                      notifyWarning('Digite um comentário mais extenso!');
-                      return;
-                    }
-
-                    await fnNewCommentary(newCommentaryText)
-                    await getCommentary();
-
-                    setNewCommentaryText('');
-
-                    notifySuccess('Comentário registrado com sucesso.')
-                  }}
-                />
-              </>
-            ) : ''
-          }
-
-        </article>
-      </div>
+                        notifySuccess('Comentário registrado com sucesso.')
+                      }}
+                    />
+                  </>
+                ) : ''
+              }
+            </motion.article>
+          )}
+        </AnimatePresence>
+      </motion.div>
     </>
   );
 };

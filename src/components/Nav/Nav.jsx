@@ -48,7 +48,7 @@ const Nav = ({ showMobileNavBar, toggleShowMobileNavBar }) => {
                             </>
                         ) : (
                             <motion.span whileHover={{ scale: 1.2 }} whileTap={{ scale: 0.9 }} className='navbar__item'>
-                                <Link to='/eventos-aluno' className='navbar__item'>Eventos Aluno</Link>
+                                <Link to='/eventos-aluno' className='navbar__item'>Eventos</Link>
                             </motion.span>
                         )
                     : ''
