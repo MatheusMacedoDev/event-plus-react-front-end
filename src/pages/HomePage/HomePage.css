@@ -2,10 +2,11 @@
 
 .events-box {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   gap: 30px;
   margin-top: 50px;
+  width: fit-content;
 /* padding: 40px 0 20px 0; */
 }
   
@@ -21,7 +22,6 @@
 @media screen and (min-width: 992px) {
   .events-box {
     flex-direction: row;
-    flex-wrap: wrap;
     margin: 50px 0;
   }
 

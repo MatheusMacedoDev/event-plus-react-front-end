@@ -10,6 +10,7 @@ import Commentary from '../../components/Commentary/Commentary';
 import EventInfo from './EventInfo/EventInfo';
 import Notification from '../../components/Notification/Notification';
 import Spinner from '../../components/Spinner/Spinner';
+import Carousel from '../../components/Carousel/Carousel';
 
 // API
 
@@ -38,8 +39,6 @@ const EventCommentaryCommonPage = () => {
         window.scrollTo({ top: 0 });
     }
 
-    scrollUp()
-
     useEffect(() => {
         async function getCommentaries() {
             setShowSpinner(true);
@@ -64,6 +63,7 @@ const EventCommentaryCommonPage = () => {
             setShowSpinner(false);
         }
 
+        scrollUp()
         getCommentaries();
     }, []);
 
@@ -91,19 +91,21 @@ const EventCommentaryCommonPage = () => {
                     />
 
                     <Title text='Comentários' />
-                    <section className="commentaries__box">
-                        {
-                            commentaries.map(commentary => (
-                                <Commentary 
-                                    key={commentary.idComentarioEvento}
-                                    id={commentary.idComentarioEvento}
-                                    description={commentary.descricao}
-                                    author={commentary.usuario.nome}
-                                    isDanger={!commentary.exibe}
-                                />
-                            ))
-                        }
-                    </section>
+                    <Carousel>
+                        <section className="commentaries__box">
+                            {
+                                commentaries.map(commentary => (
+                                    <Commentary 
+                                        key={commentary.idComentarioEvento}
+                                        id={commentary.idComentarioEvento}
+                                        description={commentary.descricao}
+                                        author={commentary.usuario.nome}
+                                        isDanger={!commentary.exibe}
+                                    />
+                                ))
+                            }
+                        </section>
+                    </Carousel>
                 </div>
             </main>
         </>

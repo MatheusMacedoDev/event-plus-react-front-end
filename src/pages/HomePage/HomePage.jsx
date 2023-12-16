@@ -7,6 +7,7 @@ import ContactSection from '../../components/ContactSection/ContactSection';
 import EventCard from '../../components/EventCard/EventCard';
 import Title from '../../components/Title/Title';
 import Container from '../../components/Container/Container';
+import Carousel from '../../components/Carousel/Carousel'
 
 import api from '../../services/apiAcessor';
 import { listNextEventsResource, listPreviousEventsResource } from '../../services/apiResources';
@@ -73,21 +74,23 @@ const HomePage = () => {
                         <Container>
                             <Title text='Próximos Eventos' />
 
-                            <div className="events-box">
-                                { nextEvents.map(nextEvent => {
-                                    return (
-                                        <EventCard 
-                                            key={ nextEvent.idEvento }
-                                            title={ nextEvent.nomeEvento } 
-                                            description={ nextEvent.descricao } 
-                                            date={ nextEvent.dataEvento } 
-                                            idEvent={ nextEvent.idEvento } 
-                                            buttonText='Conectar'
-                                            buttonLink='/eventos-aluno'
-                                        />
-                                    )
-                                })}
-                            </div>
+                            <Carousel>
+                                <div className="events-box">
+                                    { nextEvents.map(nextEvent => {
+                                        return (
+                                            <EventCard 
+                                                key={ nextEvent.idEvento }
+                                                title={ nextEvent.nomeEvento } 
+                                                description={ nextEvent.descricao } 
+                                                date={ nextEvent.dataEvento } 
+                                                idEvent={ nextEvent.idEvento } 
+                                                buttonText='Conectar'
+                                                buttonLink='/eventos-aluno'
+                                            />
+                                        )
+                                    })}
+                                </div>
+                            </Carousel>
                         </Container>
                     </motion.div>
                     <motion.div 
@@ -97,22 +100,23 @@ const HomePage = () => {
                     >
                         <Container>
                             <Title text='Eventos Anteriores' />
-
-                            <div className="events-box">
-                                { previousEvents.map(previousEvent => {
-                                    return (
-                                        <EventCard 
-                                            key={ previousEvent.idEvento }
-                                            title={ previousEvent.nomeEvento } 
-                                            description={ previousEvent.descricao } 
-                                            date={ previousEvent.dataEvento } 
-                                            idEvent={ previousEvent.idEvento } 
-                                            buttonText='Visualizar'
-                                            buttonLink={`/comentarios/${previousEvent.idEvento}/${previousEvent.nomeEvento}`}
-                                        />
-                                    )
-                                })}
-                            </div>
+                            <Carousel>
+                                <div className="events-box">
+                                    { previousEvents.map(previousEvent => {
+                                        return (
+                                            <EventCard 
+                                                key={ previousEvent.idEvento }
+                                                title={ previousEvent.nomeEvento } 
+                                                description={ previousEvent.descricao } 
+                                                date={ previousEvent.dataEvento } 
+                                                idEvent={ previousEvent.idEvento } 
+                                                buttonText='Visualizar'
+                                                buttonLink={`/comentarios/${previousEvent.idEvento}/${previousEvent.nomeEvento}`}
+                                            />
+                                        )
+                                    })}
+                                </div>
+                            </Carousel>
                         </Container>
                     </motion.div>
                 </section>

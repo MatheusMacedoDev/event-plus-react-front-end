@@ -23,7 +23,7 @@ const Commentary = ({ id, description, author, isDanger }) => {
             transition={{ duration: 0.3 }}
             className={`commentary ${isDanger ? 'commentary--danger' : ''}`}
         >
-            <img src={avatarImages[chosenImageIndex]} alt="Imagem do usuário" className='commentary__image' />
+            <img draggable='false' src={avatarImages[chosenImageIndex]} alt="Imagem do usuário" className='commentary__image' />
             <p 
                 className="commentary__description"
                 data-tooltip-id={id}
