@@ -7,6 +7,7 @@
   gap: 30px;
   margin-top: 50px;
   width: fit-content;
+  flex-wrap: nowrap;
 /* padding: 40px 0 20px 0; */
 }
   

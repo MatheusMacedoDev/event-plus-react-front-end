@@ -49,10 +49,10 @@ const EventInfo = ({ eventId, notifyError, setShowSpinner }) => {
                 transition={{ duration: 0.5 }}
                 className="event-info__box"
             >
-                <p className="event-info__text"><strong className='event-info__text--highlight'>Título:</strong> {event.nomeEvento}</p>
-                <p className="event-info__text"><strong className='event-info__text--highlight'>Descrição:</strong> {event.descricao}</p>
-                <p className="event-info__text"><strong className='event-info__text--highlight'>Tipo do Evento:</strong> {event.tiposEvento.titulo}</p>
-                <p className="event-info__text"><strong className='event-info__text--highlight'>Data:</strong> {dateFormatDbToView(event.dataEvento)}</p>
+                <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="event-info__text"><strong className='event-info__text--highlight'>Título:</strong> {event.nomeEvento}</motion.p>
+                <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="event-info__text"><strong className='event-info__text--highlight'>Descrição:</strong> {event.descricao}</motion.p>
+                <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="event-info__text"><strong className='event-info__text--highlight'>Tipo do Evento:</strong> {event.tiposEvento.titulo}</motion.p>
+                <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="event-info__text"><strong className='event-info__text--highlight'>Data:</strong> {dateFormatDbToView(event.dataEvento)}</motion.p>
             </motion.div>
         </section>
     );

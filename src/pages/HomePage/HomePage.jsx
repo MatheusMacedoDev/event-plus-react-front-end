@@ -74,7 +74,7 @@ const HomePage = () => {
                         <Container>
                             <Title text='Próximos Eventos' />
 
-                            <Carousel>
+                            <Carousel id='next-events-carousel'>
                                 <div className="events-box">
                                     { nextEvents.map(nextEvent => {
                                         return (
@@ -100,7 +100,7 @@ const HomePage = () => {
                     >
                         <Container>
                             <Title text='Eventos Anteriores' />
-                            <Carousel>
+                            <Carousel id='previous-events-carousel'>
                                 <div className="events-box">
                                     { previousEvents.map(previousEvent => {
                                         return (

@@ -91,7 +91,7 @@ const EventCommentaryCommonPage = () => {
                     />
 
                     <Title text='Comentários' />
-                    <Carousel>
+                    <Carousel id='commentaries-carousel'>
                         <section className="commentaries__box">
                             {
                                 commentaries.map(commentary => (

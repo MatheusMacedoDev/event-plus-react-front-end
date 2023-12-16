@@ -4,18 +4,17 @@ import { motion } from 'framer-motion'
 
 import './Carousel.css'
 
-export default function Carousel({ maxWidth = 900, children }) {
+export default function Carousel({ id, maxWidth = 900, children }) {
     const carousel = useRef(null);
     const [width, setWidth] = useState(0);
 
     useEffect(() => {
-        setTimeout(() => {
-            setWidth(carousel.current?.scrollWidth - carousel.current?.offsetWidth)
-        }, 100);
-    }, []);
+        setWidth(carousel.current?.scrollWidth - carousel.current?.offsetWidth + 65)
+    }, [width]);
 
     return (
         <motion.div
+            id={id}
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
