@@ -8,12 +8,12 @@ import EventCard from '../../components/EventCard/EventCard';
 import Title from '../../components/Title/Title';
 import Container from '../../components/Container/Container';
 import Carousel from '../../components/Carousel/Carousel'
-import Spinner from '../../components/Spinner/Spinner';
 
 import api from '../../services/apiAcessor';
 import { listNextEventsResource, listPreviousEventsResource } from '../../services/apiResources';
 
 import Notification from '../../components/Notification/Notification';
+import Spinner from '../../components/Spinner/Spinner';
 
 import { motion } from 'framer-motion'
 
