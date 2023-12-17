@@ -64,7 +64,8 @@
   }
   
   .frm-login__entry::placeholder {
-    color: lightgrey;
+    color: rgb(108, 108, 108);
+    opacity: 1;
   }
   
   .frm-login__link {

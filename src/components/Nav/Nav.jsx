@@ -20,8 +20,8 @@ const Nav = ({ showMobileNavBar, toggleShowMobileNavBar }) => {
             <Link to='/' className="eventlogo">
                 <motion.img 
                     draggable='false'
-                    initial={{ rotate: -3, opacity: 0.5 }}
-                    animate={{ rotate: 3, opacity: 1 }}
+                    initial={{ rotate: -1, opacity: 0.5 }}
+                    animate={{ rotate: 1, opacity: 1 }}
                     transition={{ repeat: Infinity, repeatType: 'mirror', duration: 2 }}
                     whileHover={{ scale: 1.2 }} 
                     whileTap={{ scale: 0.9 }} 

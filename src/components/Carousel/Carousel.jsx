@@ -9,8 +9,10 @@ export default function Carousel({ id, maxWidth = 900, children }) {
     const [width, setWidth] = useState(0);
 
     useEffect(() => {
-        setWidth(carousel.current?.scrollWidth - carousel.current?.offsetWidth + 65)
-    }, [width]);
+        setWidth(carousel.current?.scrollWidth - carousel.current?.offsetWidth + 10)
+        // console.log(carousel.current?.scrollWidth - carousel.current?.offsetWidth);
+        // console.log(carousel.current.children[0].scrollWidth - carousel.current.children[0].clientWidth);
+    }, [width, carousel.current?.scrollWidth, carousel.current?.offsetWidth]);
 
     return (
         <motion.div
