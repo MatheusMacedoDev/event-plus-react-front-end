@@ -93,6 +93,7 @@ const EventTypePage = () => {
         
         if (title.trim().length < 3) {
             notifyWarning('O título deve conter ao menos 3 caractéres')
+            setShowSpinner(false);
             return;
         }
 
