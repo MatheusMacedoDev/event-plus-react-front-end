@@ -1,4 +1,5 @@
 .carousel {
     cursor: grab;
-    overflow: hidden;
+    overflow-x: scroll;
+    overflow-y: hidden;
 }

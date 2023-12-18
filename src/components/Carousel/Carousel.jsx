@@ -29,8 +29,8 @@ export default function Carousel({ id, maxWidth = 900, children }) {
                 initial={{ x: 200 }}
                 whileInView={{ x: 0 }}
                 transition={{ duration: 0.5 }}
-                drag='x'
-                dragConstraints={{ right: 0, left: -width }}
+                // drag='x'
+                // dragConstraints={{ right: 0, left: -width }}
                 className="carousel__content"
             >
                 { children }
