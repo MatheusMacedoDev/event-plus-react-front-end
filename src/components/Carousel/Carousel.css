@@ -1,5 +1,19 @@
 .carousel {
     cursor: grab;
+    overflow: hidden;
+}
+
+.carousel__content {
     overflow-x: scroll;
     overflow-y: hidden;
+}
+
+.carousel__content::-webkit-scrollbar {
+    background-color: white;
+    height: 5px;
+}
+
+.carousel__content::-webkit-scrollbar-thumb {
+    background-color: #B51D44;
+    border-radius: 15px;
 }
